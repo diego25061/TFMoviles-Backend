@@ -34,13 +34,14 @@
       <PropertyRef Name="CoupleId" />
     </Key>
     <Property Name="CoupleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FianceId" Type="int" Nullable="false" />
-    <Property Name="FianceeId" Type="int" Nullable="false" />
     <Property Name="SharedEmail" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Usr" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="WPlannerId" Type="int" Nullable="false" />
     <Property Name="Address" Type="varchar" MaxLength="250" />
+    <Property Name="LastNameIdentifier" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="Expense">
     <Key>
@@ -95,11 +96,11 @@
       <PropertyRef Name="WeddingId" />
     </Key>
     <Property Name="WeddingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FianceeId" Type="int" Nullable="false" />
+    <Property Name="CoupleId" Type="int" Nullable="false" />
     <Property Name="Date" Type="date" Nullable="false" />
     <Property Name="InitialBudget" Type="float" Nullable="false" />
     <Property Name="BudgetId" Type="int" Nullable="false" />
-    <Property Name="Location" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Location" Type="varchar" MaxLength="250" />
     <Property Name="QuantityInvitations" Type="int" Nullable="false" />
     <Property Name="ChecklistId" Type="int" Nullable="false" />
     <Property Name="CatalogueId" Type="int" Nullable="false" />
@@ -111,10 +112,10 @@
     <Property Name="WPlannerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="WPlannerCompanyId" Type="int" Nullable="false" />
     <Property Name="Address" Type="varchar" MaxLength="250" />
-    <Property Name="Telephone" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Telephone" Type="varchar" MaxLength="50" />
     <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Usr" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="PersonId" Type="int" />
   </EntityType>
   <EntityType Name="WPlannerCompany">
     <Key>
@@ -126,6 +127,8 @@
     <Property Name="Telephone" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="SubscriptionTypeId" Type="int" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Usr" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_Activity_Checklist">
     <End Role="Checklist" Type="Self.Checklist" Multiplicity="1" />
@@ -136,30 +139,6 @@
       </Principal>
       <Dependent Role="Activity">
         <PropertyRef Name="ChecklistId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Couple_Person">
-    <End Role="Person" Type="Self.Person" Multiplicity="1" />
-    <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="PersonId" />
-      </Principal>
-      <Dependent Role="Couple">
-        <PropertyRef Name="FianceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Couple_Person1">
-    <End Role="Person" Type="Self.Person" Multiplicity="1" />
-    <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="PersonId" />
-      </Principal>
-      <Dependent Role="Couple">
-        <PropertyRef Name="FianceeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -255,12 +234,12 @@
         <PropertyRef Name="CoupleId" />
       </Principal>
       <Dependent Role="Wedding">
-        <PropertyRef Name="FianceeId" />
+        <PropertyRef Name="CoupleId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_WPlanner_Person">
-    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
     <End Role="WPlanner" Type="Self.WPlanner" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Person">
@@ -312,14 +291,6 @@
     <AssociationSet Name="FK_Activity_Checklist" Association="Self.FK_Activity_Checklist">
       <End Role="Checklist" EntitySet="Checklist" />
       <End Role="Activity" EntitySet="Activity" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Couple_Person" Association="Self.FK_Couple_Person">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="Couple" EntitySet="Couple" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Couple_Person1" Association="Self.FK_Couple_Person1">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="Couple" EntitySet="Couple" />
     </AssociationSet>
     <AssociationSet Name="FK_Couple_WPlanner" Association="Self.FK_Couple_WPlanner">
       <End Role="WPlanner" EntitySet="WPlanner" />

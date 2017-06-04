@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace WPlanningAPI.Controllers
 {
-    public class CoupleController : Controller
+    public class CoupleController : BaseController
     {
         // GET: Couple
         public ActionResult Index()

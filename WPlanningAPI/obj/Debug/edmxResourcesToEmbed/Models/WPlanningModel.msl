@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="WPlanningDBModelStoreContainer" CdmEntityContainer="WPlanningDBEntities">
+  <EntityContainerMapping StorageEntityContainer="WPlanningDBModelStoreContainer" CdmEntityContainer="Entities">
     <EntitySetMapping Name="Activity">
       <EntityTypeMapping TypeName="WPlanningDBModel.Activity">
         <MappingFragment StoreEntitySet="Activity">
@@ -38,13 +38,14 @@
       <EntityTypeMapping TypeName="WPlanningDBModel.Couple">
         <MappingFragment StoreEntitySet="Couple">
           <ScalarProperty Name="CoupleId" ColumnName="CoupleId" />
-          <ScalarProperty Name="FianceId" ColumnName="FianceId" />
-          <ScalarProperty Name="FianceeId" ColumnName="FianceeId" />
           <ScalarProperty Name="SharedEmail" ColumnName="SharedEmail" />
           <ScalarProperty Name="Usr" ColumnName="Usr" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="WPlannerId" ColumnName="WPlannerId" />
           <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="LastNameIdentifier" ColumnName="LastNameIdentifier" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -105,7 +106,7 @@
       <EntityTypeMapping TypeName="WPlanningDBModel.Wedding">
         <MappingFragment StoreEntitySet="Wedding">
           <ScalarProperty Name="WeddingId" ColumnName="WeddingId" />
-          <ScalarProperty Name="FianceeId" ColumnName="FianceeId" />
+          <ScalarProperty Name="CoupleId" ColumnName="CoupleId" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="InitialBudget" ColumnName="InitialBudget" />
           <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
@@ -138,6 +139,8 @@
           <ScalarProperty Name="Telephone" ColumnName="Telephone" />
           <ScalarProperty Name="SubscriptionTypeId" ColumnName="SubscriptionTypeId" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Usr" ColumnName="Usr" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

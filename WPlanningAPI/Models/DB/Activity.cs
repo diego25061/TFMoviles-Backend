@@ -7,18 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models
+namespace WPlanningAPI.Models.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Option
+    public partial class Activity
     {
-        public int OptionId { get; set; }
-        public string Description { get; set; }
-        public bool Chosen { get; set; }
-        public int SubCatalogueId { get; set; }
+        public int ActivityId { get; set; }
+        public string ActivityName { get; set; }
+        public System.DateTime Date { get; set; }
+        public bool Done { get; set; }
+        public int ChecklistId { get; set; }
     
-        public virtual SubCatalogue SubCatalogue { get; set; }
+        public virtual Checklist Checklist { get; set; }
     }
 }

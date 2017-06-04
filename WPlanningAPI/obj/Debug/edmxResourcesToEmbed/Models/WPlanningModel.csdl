@@ -41,15 +41,14 @@
       <PropertyRef Name="CoupleId" />
     </Key>
     <Property Name="CoupleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FianceId" Type="Int32" Nullable="false" />
-    <Property Name="FianceeId" Type="Int32" Nullable="false" />
     <Property Name="SharedEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="WPlannerId" Type="Int32" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Person" Relationship="Self.FK_Couple_Person" FromRole="Couple" ToRole="Person" />
-    <NavigationProperty Name="Person1" Relationship="Self.FK_Couple_Person1" FromRole="Couple" ToRole="Person" />
+    <Property Name="LastNameIdentifier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="WPlanner" Relationship="Self.FK_Couple_WPlanner" FromRole="Couple" ToRole="WPlanner" />
     <NavigationProperty Name="Wedding" Relationship="Self.FK_Wedding_Couple" FromRole="Couple" ToRole="Wedding" />
   </EntityType>
@@ -83,8 +82,6 @@
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Couple" Relationship="Self.FK_Couple_Person" FromRole="Person" ToRole="Couple" />
-    <NavigationProperty Name="Couple1" Relationship="Self.FK_Couple_Person1" FromRole="Person" ToRole="Couple" />
     <NavigationProperty Name="WPlanner" Relationship="Self.FK_WPlanner_Person" FromRole="Person" ToRole="WPlanner" />
   </EntityType>
   <EntityType Name="SubCatalogue">
@@ -114,11 +111,11 @@
       <PropertyRef Name="WeddingId" />
     </Key>
     <Property Name="WeddingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FianceeId" Type="Int32" Nullable="false" />
+    <Property Name="CoupleId" Type="Int32" Nullable="false" />
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="InitialBudget" Type="Double" Nullable="false" />
     <Property Name="BudgetId" Type="Int32" Nullable="false" />
-    <Property Name="Location" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="QuantityInvitations" Type="Int32" Nullable="false" />
     <Property Name="ChecklistId" Type="Int32" Nullable="false" />
     <Property Name="CatalogueId" Type="Int32" Nullable="false" />
@@ -134,10 +131,10 @@
     <Property Name="WPlannerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="WPlannerCompanyId" Type="Int32" Nullable="false" />
     <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="PersonId" Type="Int32" Nullable="false" />
+    <Property Name="PersonId" Type="Int32" />
     <NavigationProperty Name="Couple" Relationship="Self.FK_Couple_WPlanner" FromRole="WPlanner" ToRole="Couple" />
     <NavigationProperty Name="Person" Relationship="Self.FK_WPlanner_Person" FromRole="WPlanner" ToRole="Person" />
     <NavigationProperty Name="WPlannerCompany" Relationship="Self.FK_WPlanner_WPlannerCompany" FromRole="WPlanner" ToRole="WPlannerCompany" />
@@ -152,6 +149,8 @@
     <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SubscriptionTypeId" Type="Int32" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="SubscriptionType" Relationship="Self.FK_WPlannerCompany_SubscriptionType" FromRole="WPlannerCompany" ToRole="SubscriptionType" />
     <NavigationProperty Name="WPlanner" Relationship="Self.FK_WPlanner_WPlannerCompany" FromRole="WPlannerCompany" ToRole="WPlanner" />
   </EntityType>
@@ -227,30 +226,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Couple_Person">
-    <End Role="Person" Type="Self.Person" Multiplicity="1" />
-    <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="PersonId" />
-      </Principal>
-      <Dependent Role="Couple">
-        <PropertyRef Name="FianceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Couple_Person1">
-    <End Role="Person" Type="Self.Person" Multiplicity="1" />
-    <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="PersonId" />
-      </Principal>
-      <Dependent Role="Couple">
-        <PropertyRef Name="FianceeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Couple_WPlanner">
     <End Role="WPlanner" Type="Self.WPlanner" Multiplicity="1" />
     <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
@@ -271,7 +246,7 @@
         <PropertyRef Name="CoupleId" />
       </Principal>
       <Dependent Role="Wedding">
-        <PropertyRef Name="FianceeId" />
+        <PropertyRef Name="CoupleId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -288,7 +263,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_WPlanner_Person">
-    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
     <End Role="WPlanner" Type="Self.WPlanner" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Person">
@@ -323,7 +298,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="WPlanningDBEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Activity" EntityType="Self.Activity" />
     <EntitySet Name="Budget" EntityType="Self.Budget" />
     <EntitySet Name="Catalogue" EntityType="Self.Catalogue" />
@@ -360,14 +335,6 @@
     <AssociationSet Name="FK_Wedding_Checklist" Association="Self.FK_Wedding_Checklist">
       <End Role="Checklist" EntitySet="Checklist" />
       <End Role="Wedding" EntitySet="Wedding" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Couple_Person" Association="Self.FK_Couple_Person">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="Couple" EntitySet="Couple" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Couple_Person1" Association="Self.FK_Couple_Person1">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="Couple" EntitySet="Couple" />
     </AssociationSet>
     <AssociationSet Name="FK_Couple_WPlanner" Association="Self.FK_Couple_WPlanner">
       <End Role="WPlanner" EntitySet="WPlanner" />

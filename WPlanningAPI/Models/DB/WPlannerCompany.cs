@@ -7,25 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models
+namespace WPlanningAPI.Models.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SubCatalogue
+    public partial class WPlannerCompany
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubCatalogue()
+        public WPlannerCompany()
         {
-            this.Option = new HashSet<Option>();
+            this.WPlanner = new HashSet<WPlanner>();
         }
     
-        public int SubCatalogueId { get; set; }
-        public string Name { get; set; }
-        public int CatalogueId { get; set; }
+        public int WPlannerCompanyId { get; set; }
+        public string CompanyName { get; set; }
+        public string Address { get; set; }
+        public string Telephone { get; set; }
+        public int SubscriptionTypeId { get; set; }
+        public string Email { get; set; }
+        public string Usr { get; set; }
+        public string Password { get; set; }
     
-        public virtual Catalogue Catalogue { get; set; }
+        public virtual SubscriptionType SubscriptionType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Option { get; set; }
+        public virtual ICollection<WPlanner> WPlanner { get; set; }
     }
 }

@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models
+namespace WPlanningAPI.Models.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Expense
+    public partial class Option
     {
-        public int ExpenseId { get; set; }
-        public string ExpenseName { get; set; }
-        public double FinalPrice { get; set; }
-        public double EstimatedPrice { get; set; }
-        public int BudgetId { get; set; }
+        public int OptionId { get; set; }
+        public string Description { get; set; }
+        public bool Chosen { get; set; }
+        public int SubCatalogueId { get; set; }
     
-        public virtual Budget Budget { get; set; }
+        public virtual SubCatalogue SubCatalogue { get; set; }
     }
 }

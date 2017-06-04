@@ -7,32 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models
+namespace WPlanningAPI.Models.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class Budget
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public Budget()
         {
-            this.Couple = new HashSet<Couple>();
-            this.Couple1 = new HashSet<Couple>();
-            this.WPlanner = new HashSet<WPlanner>();
+            this.Expense = new HashSet<Expense>();
+            this.Wedding = new HashSet<Wedding>();
         }
     
-        public int PersonId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
+        public int BudgetId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Couple> Couple { get; set; }
+        public virtual ICollection<Expense> Expense { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Couple> Couple1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WPlanner> WPlanner { get; set; }
+        public virtual ICollection<Wedding> Wedding { get; set; }
     }
 }

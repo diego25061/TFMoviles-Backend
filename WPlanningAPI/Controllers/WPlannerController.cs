@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WPlanningAPI.Models;
+using WPlanningAPI.Models.DB ;
 
 namespace WPlanningAPI.Controllers
 {
-    public class WPlannerController : Controller
+    public class WPlannerController : BaseController
     {
         // GET: Planner
         public JsonResult Index()
@@ -16,6 +16,10 @@ namespace WPlanningAPI.Controllers
             return Json(db.WPlanner.ToList<WPlanner>(), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Index(int Id)
+        {
+            return null;
+        }
 
         public ActionResult Generate(int? Quantity)
         {
@@ -34,5 +38,22 @@ namespace WPlanningAPI.Controllers
             
             return Json(planners, JsonRequestBehavior.AllowGet);
         }
+
+
+        public ActionResult ValidateCredentials(string User, string Password){
+            if ( isEmptyOrSpaces(User) || isEmptyOrSpaces(Password))
+            {
+                return HttpNotFound("Parameters missing");
+            }
+            var db = new WPlanningDBEntities();
+            var planner = db.WPlanner.Where(w => w.Password.Equals(Password) && w.Usr.Equals(User)).FirstOrDefault();
+            if (planner != null)
+            {
+                return Content(""+planner.WPlannerId);
+            }
+            return Content(""+(-1));
+        }
+
+
     }
 }

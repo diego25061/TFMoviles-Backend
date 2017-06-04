@@ -7,19 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models
+namespace WPlanningAPI.Models.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Activity
+    public partial class Wedding
     {
-        public int ActivityId { get; set; }
-        public string ActivityName { get; set; }
+        public int WeddingId { get; set; }
+        public int CoupleId { get; set; }
         public System.DateTime Date { get; set; }
-        public bool Done { get; set; }
+        public double InitialBudget { get; set; }
+        public int BudgetId { get; set; }
+        public string Location { get; set; }
+        public int QuantityInvitations { get; set; }
         public int ChecklistId { get; set; }
+        public int CatalogueId { get; set; }
     
+        public virtual Budget Budget { get; set; }
+        public virtual Catalogue Catalogue { get; set; }
         public virtual Checklist Checklist { get; set; }
+        public virtual Couple Couple { get; set; }
     }
 }

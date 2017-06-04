@@ -7,25 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models
+namespace WPlanningAPI.Models.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Catalogue
+    public partial class Couple
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Catalogue()
+        public Couple()
         {
-            this.SubCatalogue = new HashSet<SubCatalogue>();
             this.Wedding = new HashSet<Wedding>();
         }
     
-        public int CatalogueId { get; set; }
-        public string CatalogueName { get; set; }
+        public int CoupleId { get; set; }
+        public string SharedEmail { get; set; }
+        public string Usr { get; set; }
+        public string Password { get; set; }
+        public int WPlannerId { get; set; }
+        public string Address { get; set; }
+        public string LastNameIdentifier { get; set; }
+        public string Status { get; set; }
+        public string Phone { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubCatalogue> SubCatalogue { get; set; }
+        public virtual WPlanner WPlanner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wedding> Wedding { get; set; }
     }

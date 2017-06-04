@@ -7,26 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models
+namespace WPlanningAPI.Models.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Wedding
+    public partial class SubCatalogue
     {
-        public int WeddingId { get; set; }
-        public int FianceeId { get; set; }
-        public System.DateTime Date { get; set; }
-        public double InitialBudget { get; set; }
-        public int BudgetId { get; set; }
-        public string Location { get; set; }
-        public int QuantityInvitations { get; set; }
-        public int ChecklistId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SubCatalogue()
+        {
+            this.Option = new HashSet<Option>();
+        }
+    
+        public int SubCatalogueId { get; set; }
+        public string Name { get; set; }
         public int CatalogueId { get; set; }
     
-        public virtual Budget Budget { get; set; }
         public virtual Catalogue Catalogue { get; set; }
-        public virtual Checklist Checklist { get; set; }
-        public virtual Couple Couple { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Option> Option { get; set; }
     }
 }
