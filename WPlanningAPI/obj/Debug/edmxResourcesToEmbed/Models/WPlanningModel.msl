@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WPlanningDBModelStoreContainer" CdmEntityContainer="WPlanningDBEntities">
+    <EntitySetMapping Name="Activity">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Activity">
+        <MappingFragment StoreEntitySet="Activity">
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Done" ColumnName="Done" />
+          <ScalarProperty Name="ChecklistId" ColumnName="ChecklistId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Budget">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Budget">
+        <MappingFragment StoreEntitySet="Budget">
+          <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Catalogue">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Catalogue">
+        <MappingFragment StoreEntitySet="Catalogue">
+          <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+          <ScalarProperty Name="CatalogueName" ColumnName="CatalogueName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Checklist">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Checklist">
+        <MappingFragment StoreEntitySet="Checklist">
+          <ScalarProperty Name="ChecklistId" ColumnName="ChecklistId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Couple">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Couple">
+        <MappingFragment StoreEntitySet="Couple">
+          <ScalarProperty Name="CoupleId" ColumnName="CoupleId" />
+          <ScalarProperty Name="FianceId" ColumnName="FianceId" />
+          <ScalarProperty Name="FianceeId" ColumnName="FianceeId" />
+          <ScalarProperty Name="SharedEmail" ColumnName="SharedEmail" />
+          <ScalarProperty Name="Usr" ColumnName="Usr" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="WPlannerId" ColumnName="WPlannerId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expense">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Expense">
+        <MappingFragment StoreEntitySet="Expense">
+          <ScalarProperty Name="ExpenseId" ColumnName="ExpenseId" />
+          <ScalarProperty Name="ExpenseName" ColumnName="ExpenseName" />
+          <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+          <ScalarProperty Name="EstimatedPrice" ColumnName="EstimatedPrice" />
+          <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Option">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Option">
+        <MappingFragment StoreEntitySet="Option">
+          <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Chosen" ColumnName="Chosen" />
+          <ScalarProperty Name="SubCatalogueId" ColumnName="SubCatalogueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubCatalogue">
+      <EntityTypeMapping TypeName="WPlanningDBModel.SubCatalogue">
+        <MappingFragment StoreEntitySet="SubCatalogue">
+          <ScalarProperty Name="SubCatalogueId" ColumnName="SubCatalogueId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubscriptionType">
+      <EntityTypeMapping TypeName="WPlanningDBModel.SubscriptionType">
+        <MappingFragment StoreEntitySet="SubscriptionType">
+          <ScalarProperty Name="SubscriptionTypeId" ColumnName="SubscriptionTypeId" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="QuantityWPlanners" ColumnName="QuantityWPlanners" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wedding">
+      <EntityTypeMapping TypeName="WPlanningDBModel.Wedding">
+        <MappingFragment StoreEntitySet="Wedding">
+          <ScalarProperty Name="WeddingId" ColumnName="WeddingId" />
+          <ScalarProperty Name="FianceeId" ColumnName="FianceeId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="InitialBudget" ColumnName="InitialBudget" />
+          <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="QuantityInvitations" ColumnName="QuantityInvitations" />
+          <ScalarProperty Name="ChecklistId" ColumnName="ChecklistId" />
+          <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WPlanner">
+      <EntityTypeMapping TypeName="WPlanningDBModel.WPlanner">
+        <MappingFragment StoreEntitySet="WPlanner">
+          <ScalarProperty Name="WPlannerId" ColumnName="WPlannerId" />
+          <ScalarProperty Name="WPlannerCompanyId" ColumnName="WPlannerCompanyId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Usr" ColumnName="Usr" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WPlannerCompany">
+      <EntityTypeMapping TypeName="WPlanningDBModel.WPlannerCompany">
+        <MappingFragment StoreEntitySet="WPlannerCompany">
+          <ScalarProperty Name="WPlannerCompanyId" ColumnName="WPlannerCompanyId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="SubscriptionTypeId" ColumnName="SubscriptionTypeId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

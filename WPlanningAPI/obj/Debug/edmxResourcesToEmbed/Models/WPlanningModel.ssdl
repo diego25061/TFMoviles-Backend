@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WPlanningDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="ActivityId" />
+    </Key>
+    <Property Name="ActivityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Done" Type="bit" Nullable="false" />
+    <Property Name="ChecklistId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Budget">
+    <Key>
+      <PropertyRef Name="BudgetId" />
+    </Key>
+    <Property Name="BudgetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Catalogue">
+    <Key>
+      <PropertyRef Name="CatalogueId" />
+    </Key>
+    <Property Name="CatalogueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CatalogueName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Checklist">
+    <Key>
+      <PropertyRef Name="ChecklistId" />
+    </Key>
+    <Property Name="ChecklistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Couple">
+    <Key>
+      <PropertyRef Name="CoupleId" />
+    </Key>
+    <Property Name="CoupleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FianceId" Type="int" Nullable="false" />
+    <Property Name="FianceeId" Type="int" Nullable="false" />
+    <Property Name="SharedEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Usr" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="WPlannerId" Type="int" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Expense">
+    <Key>
+      <PropertyRef Name="ExpenseId" />
+    </Key>
+    <Property Name="ExpenseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpenseName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FinalPrice" Type="float" Nullable="false" />
+    <Property Name="EstimatedPrice" Type="float" Nullable="false" />
+    <Property Name="BudgetId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Option">
+    <Key>
+      <PropertyRef Name="OptionId" />
+    </Key>
+    <Property Name="OptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Chosen" Type="bit" Nullable="false" />
+    <Property Name="SubCatalogueId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="SubCatalogue">
+    <Key>
+      <PropertyRef Name="SubCatalogueId" />
+    </Key>
+    <Property Name="SubCatalogueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CatalogueId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubscriptionType">
+    <Key>
+      <PropertyRef Name="SubscriptionTypeId" />
+    </Key>
+    <Property Name="SubscriptionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Months" Type="int" Nullable="false" />
+    <Property Name="QuantityWPlanners" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Cost" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Wedding">
+    <Key>
+      <PropertyRef Name="WeddingId" />
+    </Key>
+    <Property Name="WeddingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FianceeId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="InitialBudget" Type="float" Nullable="false" />
+    <Property Name="BudgetId" Type="int" Nullable="false" />
+    <Property Name="Location" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="QuantityInvitations" Type="int" Nullable="false" />
+    <Property Name="ChecklistId" Type="int" Nullable="false" />
+    <Property Name="CatalogueId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WPlanner">
+    <Key>
+      <PropertyRef Name="WPlannerId" />
+    </Key>
+    <Property Name="WPlannerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WPlannerCompanyId" Type="int" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="250" />
+    <Property Name="Telephone" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Usr" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WPlannerCompany">
+    <Key>
+      <PropertyRef Name="WPlannerCompanyId" />
+    </Key>
+    <Property Name="WPlannerCompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="250" />
+    <Property Name="Telephone" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubscriptionTypeId" Type="int" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Activity_Checklist">
+    <End Role="Checklist" Type="Self.Checklist" Multiplicity="1" />
+    <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Checklist">
+        <PropertyRef Name="ChecklistId" />
+      </Principal>
+      <Dependent Role="Activity">
+        <PropertyRef Name="ChecklistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Couple_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Couple">
+        <PropertyRef Name="FianceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Couple_Person1">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Couple">
+        <PropertyRef Name="FianceeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Couple_WPlanner">
+    <End Role="WPlanner" Type="Self.WPlanner" Multiplicity="1" />
+    <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WPlanner">
+        <PropertyRef Name="WPlannerId" />
+      </Principal>
+      <Dependent Role="Couple">
+        <PropertyRef Name="WPlannerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Expense_Budget">
+    <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
+    <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Budget">
+        <PropertyRef Name="BudgetId" />
+      </Principal>
+      <Dependent Role="Expense">
+        <PropertyRef Name="BudgetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Option_SubCatalogue">
+    <End Role="SubCatalogue" Type="Self.SubCatalogue" Multiplicity="1" />
+    <End Role="Option" Type="Self.Option" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCatalogue">
+        <PropertyRef Name="SubCatalogueId" />
+      </Principal>
+      <Dependent Role="Option">
+        <PropertyRef Name="SubCatalogueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubCatalogue_Catalogue">
+    <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
+    <End Role="SubCatalogue" Type="Self.SubCatalogue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalogue">
+        <PropertyRef Name="CatalogueId" />
+      </Principal>
+      <Dependent Role="SubCatalogue">
+        <PropertyRef Name="CatalogueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wedding_Budget">
+    <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
+    <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Budget">
+        <PropertyRef Name="BudgetId" />
+      </Principal>
+      <Dependent Role="Wedding">
+        <PropertyRef Name="BudgetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wedding_Catalogue">
+    <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
+    <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Catalogue">
+        <PropertyRef Name="CatalogueId" />
+      </Principal>
+      <Dependent Role="Wedding">
+        <PropertyRef Name="CatalogueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wedding_Checklist">
+    <End Role="Checklist" Type="Self.Checklist" Multiplicity="1" />
+    <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Checklist">
+        <PropertyRef Name="ChecklistId" />
+      </Principal>
+      <Dependent Role="Wedding">
+        <PropertyRef Name="ChecklistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Wedding_Couple">
+    <End Role="Couple" Type="Self.Couple" Multiplicity="1" />
+    <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Couple">
+        <PropertyRef Name="CoupleId" />
+      </Principal>
+      <Dependent Role="Wedding">
+        <PropertyRef Name="FianceeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WPlanner_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="WPlanner" Type="Self.WPlanner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="WPlanner">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WPlanner_WPlannerCompany">
+    <End Role="WPlannerCompany" Type="Self.WPlannerCompany" Multiplicity="1" />
+    <End Role="WPlanner" Type="Self.WPlanner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WPlannerCompany">
+        <PropertyRef Name="WPlannerCompanyId" />
+      </Principal>
+      <Dependent Role="WPlanner">
+        <PropertyRef Name="WPlannerCompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WPlannerCompany_SubscriptionType">
+    <End Role="SubscriptionType" Type="Self.SubscriptionType" Multiplicity="1" />
+    <End Role="WPlannerCompany" Type="Self.WPlannerCompany" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubscriptionType">
+        <PropertyRef Name="SubscriptionTypeId" />
+      </Principal>
+      <Dependent Role="WPlannerCompany">
+        <PropertyRef Name="SubscriptionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WPlanningDBModelStoreContainer">
+    <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Budget" EntityType="Self.Budget" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Catalogue" EntityType="Self.Catalogue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Checklist" EntityType="Self.Checklist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Couple" EntityType="Self.Couple" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubCatalogue" EntityType="Self.SubCatalogue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubscriptionType" EntityType="Self.SubscriptionType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Wedding" EntityType="Self.Wedding" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WPlanner" EntityType="Self.WPlanner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WPlannerCompany" EntityType="Self.WPlannerCompany" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Activity_Checklist" Association="Self.FK_Activity_Checklist">
+      <End Role="Checklist" EntitySet="Checklist" />
+      <End Role="Activity" EntitySet="Activity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Couple_Person" Association="Self.FK_Couple_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Couple" EntitySet="Couple" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Couple_Person1" Association="Self.FK_Couple_Person1">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Couple" EntitySet="Couple" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Couple_WPlanner" Association="Self.FK_Couple_WPlanner">
+      <End Role="WPlanner" EntitySet="WPlanner" />
+      <End Role="Couple" EntitySet="Couple" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Expense_Budget" Association="Self.FK_Expense_Budget">
+      <End Role="Budget" EntitySet="Budget" />
+      <End Role="Expense" EntitySet="Expense" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Option_SubCatalogue" Association="Self.FK_Option_SubCatalogue">
+      <End Role="SubCatalogue" EntitySet="SubCatalogue" />
+      <End Role="Option" EntitySet="Option" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubCatalogue_Catalogue" Association="Self.FK_SubCatalogue_Catalogue">
+      <End Role="Catalogue" EntitySet="Catalogue" />
+      <End Role="SubCatalogue" EntitySet="SubCatalogue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wedding_Budget" Association="Self.FK_Wedding_Budget">
+      <End Role="Budget" EntitySet="Budget" />
+      <End Role="Wedding" EntitySet="Wedding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wedding_Catalogue" Association="Self.FK_Wedding_Catalogue">
+      <End Role="Catalogue" EntitySet="Catalogue" />
+      <End Role="Wedding" EntitySet="Wedding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wedding_Checklist" Association="Self.FK_Wedding_Checklist">
+      <End Role="Checklist" EntitySet="Checklist" />
+      <End Role="Wedding" EntitySet="Wedding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Wedding_Couple" Association="Self.FK_Wedding_Couple">
+      <End Role="Couple" EntitySet="Couple" />
+      <End Role="Wedding" EntitySet="Wedding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WPlanner_Person" Association="Self.FK_WPlanner_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="WPlanner" EntitySet="WPlanner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WPlanner_WPlannerCompany" Association="Self.FK_WPlanner_WPlannerCompany">
+      <End Role="WPlannerCompany" EntitySet="WPlannerCompany" />
+      <End Role="WPlanner" EntitySet="WPlanner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WPlannerCompany_SubscriptionType" Association="Self.FK_WPlannerCompany_SubscriptionType">
+      <End Role="SubscriptionType" EntitySet="SubscriptionType" />
+      <End Role="WPlannerCompany" EntitySet="WPlannerCompany" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
