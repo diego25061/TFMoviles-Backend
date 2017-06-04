@@ -19,12 +19,16 @@ namespace WPlanningAPI.Models
             var db = new WPlanningDBEntities();
             List<DB.SubscriptionType> DBSubscriptionsList = db.SubscriptionType.ToList<DB.SubscriptionType>();
             List<SubscriptionType> lista = new List<SubscriptionType>();
-
+            db.Dispose();
             foreach (var sub in DBSubscriptionsList){
                 lista.Add(new SubscriptionType { Months = sub.Months , Cost = sub.Cost , Description = sub.Description , Name = sub.Name, WPlannerQuantity = sub.QuantityWPlanners });
             }
             return lista;
         }
 
+        public static SubscriptionType buildFromDb(DB.SubscriptionType sub)
+        {
+            return new SubscriptionType { Months = sub.Months, Cost = sub.Cost, Description = sub.Description, Name = sub.Name, WPlannerQuantity = sub.QuantityWPlanners };
+        }
     }
 }

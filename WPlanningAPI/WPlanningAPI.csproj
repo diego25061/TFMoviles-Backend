@@ -303,9 +303,11 @@
       <DependentUpon>WPlanningModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\MappedEntities\SubscriptionTypeEntity.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\SubscriptionType.cs" />
+    <Compile Include="Models\WPlanner.cs" />
+    <Compile Include="Models\WPlannerCompany.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

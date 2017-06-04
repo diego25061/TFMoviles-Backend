@@ -13,12 +13,16 @@ namespace WPlanningAPI.Controllers
         public JsonResult Index()
         {
             var db = new WPlanningDBEntities();
-            return Json(db.WPlanner.ToList<WPlanner>(), JsonRequestBehavior.AllowGet);
+            return Json(db.WPlanner.ToList<Models.DB.WPlanner>(), JsonRequestBehavior.AllowGet);
         }
 
+        [Route("WPlanner/{Id}")]
         public JsonResult Index(int Id)
         {
-            return null;
+
+            //return Json(db.WPlanner.Where(w => w.WPlannerId == Id).First(),JsonRequestBehavior.AllowGet);
+            return Json(Models.WPlanner.getFromDb(Id), JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult Generate(int? Quantity)
@@ -29,11 +33,11 @@ namespace WPlanningAPI.Controllers
             }
 
             int quantity = Quantity.Value;
-            List<WPlanner> planners = null;
+            List<Models.DB.WPlanner> planners = null;
 
             for (int i = 0 ; i < quantity; i++ )
             {
-                WPlanner planner = new WPlanner { Address = "Larry", Password = "97zxc72890d", Usr = "Lar98" };
+                Models.DB.WPlanner planner = new Models.DB.WPlanner { Address = "Larry", Password = "97zxc72890d", Usr = "Lar98" };
             }
             
             return Json(planners, JsonRequestBehavior.AllowGet);
