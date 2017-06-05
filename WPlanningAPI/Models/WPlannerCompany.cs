@@ -14,6 +14,7 @@ namespace WPlanningAPI.Models
         public string User { get; set; }
         public string Password { get; set; }
         public SubscriptionType SubscriptionType { get; set; }
+        public List<WPlanner> WPlannerList { get; set; }
 
         public static WPlannerCompany buildFromDb(DB.WPlannerCompany DbCompany)
         {
@@ -25,10 +26,24 @@ namespace WPlanningAPI.Models
                 Email = DbCompany.Email,
                 User = DbCompany.Usr,
                 Password = DbCompany.Password,
-                SubscriptionType = SubscriptionType.buildFromDb(DbCompany.SubscriptionType)
             };
             return company;
         }
+
+        public static WPlannerCompany buildFullFromDb(DB.WPlannerCompany DbCompany)
+        {
+            WPlannerCompany company = buildFromDb(DbCompany);
+            company.SubscriptionType = SubscriptionType.buildFromDb(DbCompany.SubscriptionType);
+
+            company.WPlannerList = new List<WPlanner>();
+            foreach ( var wplanner in DbCompany.WPlanner.ToList<DB.WPlanner>())
+            {
+                if(wplanner!=null)
+                    company.WPlannerList.Add(WPlanner.buildFromDb(wplanner));
+            }
+            return company;
+        }
+        
 
     }
 }
