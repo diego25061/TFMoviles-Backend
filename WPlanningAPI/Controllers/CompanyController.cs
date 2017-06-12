@@ -7,9 +7,10 @@ using System.Web.Helpers;
 
 namespace WPlanningAPI.Controllers
 {
-    public class CompanyController : Controller
+    public class CompanyController : BaseController
     {
         // GET: Company
+        /*
         [HttpGet]
         public ActionResult Index()
         {
@@ -32,34 +33,10 @@ namespace WPlanningAPI.Controllers
             }
 
         }
-
-
-        [Route("Company/{Id}")]
-        public ActionResult Index(int Id)
-        {
-            var db = new DB.WPlanningDBEntities();
-            var company = db.WPlannerCompany.Where(x => x.WPlannerCompanyId == Id).First();
-            return Json(Models.WPlannerCompany.buildFullFromDb(company), JsonRequestBehavior.AllowGet);
-        }
-
-        [Route("Company/validateCredentials")]
-        public ActionResult validateCredentials(string user, string password)
-        {
-            var db = new DB.WPlanningDBEntities();
-            try
-            {
-                var company = db.WPlannerCompany.Where(x => x.Usr == user && x.Password == password).First();
-                return Content("" + company.WPlannerCompanyId);
-            }
-            catch (Exception ex)
-            {
-                return Content("-1");
-            }
-        }
-
+        */
 
         //=================================================================================================================================
-        
+
         [HttpPost]
         public ActionResult Index(CreateCompanyDataModel dataModel)
         {
@@ -82,8 +59,69 @@ namespace WPlanningAPI.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
+                //Console.WriteLine(ex.StackTrace);
+                mostrarMensajeException(ex);
                 return Content("-1");
+            }
+        }
+
+        [Route("Company/validateCredentials")]
+        public ActionResult validateCredentials(string user, string password)
+        {
+            var db = new DB.WPlanningDBEntities();
+            try
+            {
+                var resultSet = db.WPlannerCompany.Where(x => x.Usr == user && x.Password == password);
+                if (resultSet.Count() == 0)
+                    return Content("-2");
+
+                return Content("" + resultSet.First().WPlannerCompanyId);
+
+            }
+            catch (Exception ex)
+            {
+                mostrarMensajeException(ex);
+                return Content("-1");
+            }
+        }
+
+        [Route("Company/{Id}")]
+        public ActionResult Index(int Id)
+        {
+            /*
+            var db = new DB.WPlanningDBEntities();
+            var company = db.WPlannerCompany.Where(x => x.WPlannerCompanyId == Id).First();
+            return Json(Models.WPlannerCompany.buildFullFromDb(company), JsonRequestBehavior.AllowGet);*/
+            try
+            {
+                var db = new DB.WPlanningDBEntities();
+                var dbCompany = db.WPlannerCompany.Where(x => x.WPlannerCompanyId == Id).First();
+                ViewCompanyDataModel company;
+                company = new ViewCompanyDataModel
+                {
+                    Name = dbCompany.CompanyName,
+                    Address = dbCompany.Address,
+                    Email = dbCompany.Email,
+                    Phone = dbCompany.Phone,
+                    Id = dbCompany.WPlannerCompanyId,
+                    SubscriptionName = dbCompany.SubscriptionType.Name
+                };
+                company.PlannerUsers = new List<ViewCompanyDataModel.PlannerViewCompanyDataModel>();
+                foreach (var dbPlanner in dbCompany.WPlanner)
+                {
+                    company.PlannerUsers.Add(new ViewCompanyDataModel.PlannerViewCompanyDataModel
+                    {
+                        Id = dbPlanner.WPlannerCompanyId,
+                        Password = dbPlanner.Password,
+                        User = dbPlanner.Usr
+                    });
+                }
+                return Json(company, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                mostrarMensajeException(ex);
+                return HttpNotFound(ex.Message);
             }
         }
 
@@ -97,5 +135,25 @@ namespace WPlanningAPI.Controllers
             public string Address { get; set; }
             public int SubscriptionType { get; set; }
         }
+
+
+        public class ViewCompanyDataModel
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public string Phone { get; set; }
+            public string Address { get; set; }
+            public string SubscriptionName { get; set; }
+            public List<PlannerViewCompanyDataModel> PlannerUsers;
+
+            public class PlannerViewCompanyDataModel
+            {
+                public int Id { get; set; }
+                public string User { get; set; }
+                public string Password { get; set; }
+            }
+        }
+
     }
 }

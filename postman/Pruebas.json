@@ -1,0 +1,114 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Pruebas Postman WPlanning",
+		"_postman_id": "dd8dcdcb-8213-f73e-771a-e8f58e41ee10",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. crear company",
+			"request": {
+				"url": "http://localhost:65200/Company/",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "companyy",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Email",
+							"value": "some email",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "User",
+							"value": "usr",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "pwd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Phone",
+							"value": "(+511)95203546789",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "SubscriptionType",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "Direccion asd asd",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "3. validar credenciales company",
+			"request": {
+				"url": {
+					"raw": "{{url}}/Company/validateCredentials?user=usr&password=pwd",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Company",
+						"validateCredentials"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "usr",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "password",
+							"value": "pwd",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "6. Listar planners de compañia",
+			"request": {
+				"url": "{{url}}/Company/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

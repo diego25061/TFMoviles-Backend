@@ -20,6 +20,14 @@ namespace WPlanningAPI.Controllers
             }
             return (s.Equals("") || onlySpaces);
         }
-    }
 
+        public void mostrarMensajeException(Exception ex)
+        {
+            Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ EXCEPTION");
+            Console.WriteLine(ex.StackTrace);
+            Console.WriteLine(ex);
+            Console.WriteLine(ex.Data);
+            Console.WriteLine("---------@@@@@@@");
+        }
+    }
 }
