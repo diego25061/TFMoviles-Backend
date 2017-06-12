@@ -7,31 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models.DB
+namespace WPlanningAPI.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Couple
+    public partial class Option
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Couple()
+        public Option()
         {
-            this.Wedding = new HashSet<Wedding>();
+            this.CatalogueXOption = new HashSet<CatalogueXOption>();
         }
     
-        public int CoupleId { get; set; }
-        public string SharedEmail { get; set; }
-        public string Usr { get; set; }
-        public string Password { get; set; }
-        public int WPlannerId { get; set; }
-        public string Address { get; set; }
-        public string LastNameIdentifier { get; set; }
-        public string Status { get; set; }
-        public string Phone { get; set; }
+        public int OptionId { get; set; }
+        public int OptionTypeId { get; set; }
+        public bool Chosen { get; set; }
     
-        public virtual WPlanner WPlanner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wedding> Wedding { get; set; }
+        public virtual ICollection<CatalogueXOption> CatalogueXOption { get; set; }
+        public virtual OptType OptType { get; set; }
     }
 }

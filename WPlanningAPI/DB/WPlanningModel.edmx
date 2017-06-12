@@ -13,13 +13,7 @@
           <Property Name="ActivityName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Done" Type="bit" Nullable="false" />
-          <Property Name="ChecklistId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Budget">
-          <Key>
-            <PropertyRef Name="BudgetId" />
-          </Key>
-          <Property Name="BudgetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WeddingId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Catalogue">
           <Key>
@@ -27,12 +21,16 @@
           </Key>
           <Property Name="CatalogueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CatalogueName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImageLink" Type="varchar(max)" />
+          <Property Name="BriefDescription" Type="varchar" MaxLength="40" />
         </EntityType>
-        <EntityType Name="Checklist">
+        <EntityType Name="CatalogueXOption">
           <Key>
-            <PropertyRef Name="ChecklistId" />
+            <PropertyRef Name="CatalogueXOptionId" />
           </Key>
-          <Property Name="ChecklistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogueXOptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogueId" Type="int" Nullable="false" />
+          <Property Name="OptionId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Couple">
           <Key>
@@ -47,6 +45,7 @@
           <Property Name="LastNameIdentifier" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="WeddingId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Expense">
           <Key>
@@ -54,18 +53,25 @@
           </Key>
           <Property Name="ExpenseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ExpenseName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FinalPrice" Type="float" Nullable="false" />
-          <Property Name="EstimatedPrice" Type="float" Nullable="false" />
-          <Property Name="BudgetId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="WeddingId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Option">
           <Key>
             <PropertyRef Name="OptionId" />
           </Key>
           <Property Name="OptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="OptionTypeId" Type="int" Nullable="false" />
           <Property Name="Chosen" Type="bit" Nullable="false" />
-          <Property Name="SubCatalogueId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OptType">
+          <Key>
+            <PropertyRef Name="OptionTypeId" />
+          </Key>
+          <Property Name="OptionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Cost" Type="float" Nullable="false" />
+          <Property Name="ImageLink" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -76,14 +82,6 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Phone" Type="varchar" MaxLength="20" />
-        </EntityType>
-        <EntityType Name="SubCatalogue">
-          <Key>
-            <PropertyRef Name="SubCatalogueId" />
-          </Key>
-          <Property Name="SubCatalogueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CatalogueId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SubscriptionType">
           <Key>
@@ -129,21 +127,57 @@
           <Property Name="WPlannerCompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="varchar" MaxLength="250" />
-          <Property Name="Telephone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SubscriptionTypeId" Type="int" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Usr" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Usr" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Activity_Checklist">
-          <End Role="Checklist" Type="Self.Checklist" Multiplicity="1" />
+        <Association Name="FK_Activity_Wedding">
+          <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
           <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Checklist">
-              <PropertyRef Name="ChecklistId" />
+            <Principal Role="Wedding">
+              <PropertyRef Name="WeddingId" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="ChecklistId" />
+              <PropertyRef Name="WeddingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatalogueXOption_Catalogue">
+          <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
+          <End Role="CatalogueXOption" Type="Self.CatalogueXOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catalogue">
+              <PropertyRef Name="CatalogueId" />
+            </Principal>
+            <Dependent Role="CatalogueXOption">
+              <PropertyRef Name="CatalogueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatalogueXOption_Option">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="CatalogueXOption" Type="Self.CatalogueXOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="CatalogueXOption">
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Couple_Wedding">
+          <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
+          <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wedding">
+              <PropertyRef Name="WeddingId" />
+            </Principal>
+            <Dependent Role="Couple">
+              <PropertyRef Name="WeddingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -159,51 +193,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Expense_Budget">
-          <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
+        <Association Name="FK_Expense_Wedding">
+          <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
           <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Budget">
-              <PropertyRef Name="BudgetId" />
+            <Principal Role="Wedding">
+              <PropertyRef Name="WeddingId" />
             </Principal>
             <Dependent Role="Expense">
-              <PropertyRef Name="BudgetId" />
+              <PropertyRef Name="WeddingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Option_SubCatalogue">
-          <End Role="SubCatalogue" Type="Self.SubCatalogue" Multiplicity="1" />
+        <Association Name="FK_Option_OptType">
+          <End Role="OptType" Type="Self.OptType" Multiplicity="1" />
           <End Role="Option" Type="Self.Option" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SubCatalogue">
-              <PropertyRef Name="SubCatalogueId" />
+            <Principal Role="OptType">
+              <PropertyRef Name="OptionTypeId" />
             </Principal>
             <Dependent Role="Option">
-              <PropertyRef Name="SubCatalogueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubCatalogue_Catalogue">
-          <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
-          <End Role="SubCatalogue" Type="Self.SubCatalogue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Catalogue">
-              <PropertyRef Name="CatalogueId" />
-            </Principal>
-            <Dependent Role="SubCatalogue">
-              <PropertyRef Name="CatalogueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Wedding_Budget">
-          <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
-          <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Budget">
-              <PropertyRef Name="BudgetId" />
-            </Principal>
-            <Dependent Role="Wedding">
-              <PropertyRef Name="BudgetId" />
+              <PropertyRef Name="OptionTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -216,18 +226,6 @@
             </Principal>
             <Dependent Role="Wedding">
               <PropertyRef Name="CatalogueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Wedding_Checklist">
-          <End Role="Checklist" Type="Self.Checklist" Multiplicity="1" />
-          <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Checklist">
-              <PropertyRef Name="ChecklistId" />
-            </Principal>
-            <Dependent Role="Wedding">
-              <PropertyRef Name="ChecklistId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -281,48 +279,47 @@
         </Association>
         <EntityContainer Name="WPlanningDBModelStoreContainer">
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Budget" EntityType="Self.Budget" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Catalogue" EntityType="Self.Catalogue" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Checklist" EntityType="Self.Checklist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatalogueXOption" EntityType="Self.CatalogueXOption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Couple" EntityType="Self.Couple" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OptType" EntityType="Self.OptType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SubCatalogue" EntityType="Self.SubCatalogue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubscriptionType" EntityType="Self.SubscriptionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wedding" EntityType="Self.Wedding" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WPlanner" EntityType="Self.WPlanner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WPlannerCompany" EntityType="Self.WPlannerCompany" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Activity_Checklist" Association="Self.FK_Activity_Checklist">
-            <End Role="Checklist" EntitySet="Checklist" />
+          <AssociationSet Name="FK_Activity_Wedding" Association="Self.FK_Activity_Wedding">
+            <End Role="Wedding" EntitySet="Wedding" />
             <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatalogueXOption_Catalogue" Association="Self.FK_CatalogueXOption_Catalogue">
+            <End Role="Catalogue" EntitySet="Catalogue" />
+            <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatalogueXOption_Option" Association="Self.FK_CatalogueXOption_Option">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Couple_Wedding" Association="Self.FK_Couple_Wedding">
+            <End Role="Wedding" EntitySet="Wedding" />
+            <End Role="Couple" EntitySet="Couple" />
           </AssociationSet>
           <AssociationSet Name="FK_Couple_WPlanner" Association="Self.FK_Couple_WPlanner">
             <End Role="WPlanner" EntitySet="WPlanner" />
             <End Role="Couple" EntitySet="Couple" />
           </AssociationSet>
-          <AssociationSet Name="FK_Expense_Budget" Association="Self.FK_Expense_Budget">
-            <End Role="Budget" EntitySet="Budget" />
+          <AssociationSet Name="FK_Expense_Wedding" Association="Self.FK_Expense_Wedding">
+            <End Role="Wedding" EntitySet="Wedding" />
             <End Role="Expense" EntitySet="Expense" />
           </AssociationSet>
-          <AssociationSet Name="FK_Option_SubCatalogue" Association="Self.FK_Option_SubCatalogue">
-            <End Role="SubCatalogue" EntitySet="SubCatalogue" />
+          <AssociationSet Name="FK_Option_OptType" Association="Self.FK_Option_OptType">
+            <End Role="OptType" EntitySet="OptType" />
             <End Role="Option" EntitySet="Option" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubCatalogue_Catalogue" Association="Self.FK_SubCatalogue_Catalogue">
-            <End Role="Catalogue" EntitySet="Catalogue" />
-            <End Role="SubCatalogue" EntitySet="SubCatalogue" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Budget" Association="Self.FK_Wedding_Budget">
-            <End Role="Budget" EntitySet="Budget" />
-            <End Role="Wedding" EntitySet="Wedding" />
           </AssociationSet>
           <AssociationSet Name="FK_Wedding_Catalogue" Association="Self.FK_Wedding_Catalogue">
             <End Role="Catalogue" EntitySet="Catalogue" />
-            <End Role="Wedding" EntitySet="Wedding" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Checklist" Association="Self.FK_Wedding_Checklist">
-            <End Role="Checklist" EntitySet="Checklist" />
             <End Role="Wedding" EntitySet="Wedding" />
           </AssociationSet>
           <AssociationSet Name="FK_Wedding_Couple" Association="Self.FK_Wedding_Couple">
@@ -355,16 +352,8 @@
           <Property Name="ActivityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Done" Type="Boolean" Nullable="false" />
-          <Property Name="ChecklistId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Checklist" Relationship="Self.FK_Activity_Checklist" FromRole="Activity" ToRole="Checklist" />
-        </EntityType>
-        <EntityType Name="Budget">
-          <Key>
-            <PropertyRef Name="BudgetId" />
-          </Key>
-          <Property Name="BudgetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Expense" Relationship="Self.FK_Expense_Budget" FromRole="Budget" ToRole="Expense" />
-          <NavigationProperty Name="Wedding" Relationship="Self.FK_Wedding_Budget" FromRole="Budget" ToRole="Wedding" />
+          <Property Name="WeddingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Wedding" Relationship="Self.FK_Activity_Wedding" FromRole="Activity" ToRole="Wedding" />
         </EntityType>
         <EntityType Name="Catalogue">
           <Key>
@@ -372,16 +361,20 @@
           </Key>
           <Property Name="CatalogueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CatalogueName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="SubCatalogue" Relationship="Self.FK_SubCatalogue_Catalogue" FromRole="Catalogue" ToRole="SubCatalogue" />
+          <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BriefDescription" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CatalogueXOption" Relationship="Self.FK_CatalogueXOption_Catalogue" FromRole="Catalogue" ToRole="CatalogueXOption" />
           <NavigationProperty Name="Wedding" Relationship="Self.FK_Wedding_Catalogue" FromRole="Catalogue" ToRole="Wedding" />
         </EntityType>
-        <EntityType Name="Checklist">
+        <EntityType Name="CatalogueXOption">
           <Key>
-            <PropertyRef Name="ChecklistId" />
+            <PropertyRef Name="CatalogueXOptionId" />
           </Key>
-          <Property Name="ChecklistId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Activity" Relationship="Self.FK_Activity_Checklist" FromRole="Checklist" ToRole="Activity" />
-          <NavigationProperty Name="Wedding" Relationship="Self.FK_Wedding_Checklist" FromRole="Checklist" ToRole="Wedding" />
+          <Property Name="CatalogueXOptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
+          <Property Name="OptionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Catalogue" Relationship="Self.FK_CatalogueXOption_Catalogue" FromRole="CatalogueXOption" ToRole="Catalogue" />
+          <NavigationProperty Name="Option" Relationship="Self.FK_CatalogueXOption_Option" FromRole="CatalogueXOption" ToRole="Option" />
         </EntityType>
         <EntityType Name="Couple">
           <Key>
@@ -396,8 +389,10 @@
           <Property Name="LastNameIdentifier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WeddingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Wedding" Relationship="Self.FK_Couple_Wedding" FromRole="Couple" ToRole="Wedding" />
           <NavigationProperty Name="WPlanner" Relationship="Self.FK_Couple_WPlanner" FromRole="Couple" ToRole="WPlanner" />
-          <NavigationProperty Name="Wedding" Relationship="Self.FK_Wedding_Couple" FromRole="Couple" ToRole="Wedding" />
+          <NavigationProperty Name="Wedding1" Relationship="Self.FK_Wedding_Couple" FromRole="Couple" ToRole="Wedding" />
         </EntityType>
         <EntityType Name="Expense">
           <Key>
@@ -405,20 +400,29 @@
           </Key>
           <Property Name="ExpenseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ExpenseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FinalPrice" Type="Double" Nullable="false" />
-          <Property Name="EstimatedPrice" Type="Double" Nullable="false" />
-          <Property Name="BudgetId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Budget" Relationship="Self.FK_Expense_Budget" FromRole="Expense" ToRole="Budget" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="WeddingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Wedding" Relationship="Self.FK_Expense_Wedding" FromRole="Expense" ToRole="Wedding" />
         </EntityType>
         <EntityType Name="Option">
           <Key>
             <PropertyRef Name="OptionId" />
           </Key>
           <Property Name="OptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OptionTypeId" Type="Int32" Nullable="false" />
           <Property Name="Chosen" Type="Boolean" Nullable="false" />
-          <Property Name="SubCatalogueId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SubCatalogue" Relationship="Self.FK_Option_SubCatalogue" FromRole="Option" ToRole="SubCatalogue" />
+          <NavigationProperty Name="CatalogueXOption" Relationship="Self.FK_CatalogueXOption_Option" FromRole="Option" ToRole="CatalogueXOption" />
+          <NavigationProperty Name="OptType" Relationship="Self.FK_Option_OptType" FromRole="Option" ToRole="OptType" />
+        </EntityType>
+        <EntityType Name="OptType">
+          <Key>
+            <PropertyRef Name="OptionTypeId" />
+          </Key>
+          <Property Name="OptionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cost" Type="Double" Nullable="false" />
+          <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Option" Relationship="Self.FK_Option_OptType" FromRole="OptType" ToRole="Option" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -430,16 +434,6 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="WPlanner" Relationship="Self.FK_WPlanner_Person" FromRole="Person" ToRole="WPlanner" />
-        </EntityType>
-        <EntityType Name="SubCatalogue">
-          <Key>
-            <PropertyRef Name="SubCatalogueId" />
-          </Key>
-          <Property Name="SubCatalogueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Catalogue" Relationship="Self.FK_SubCatalogue_Catalogue" FromRole="SubCatalogue" ToRole="Catalogue" />
-          <NavigationProperty Name="Option" Relationship="Self.FK_Option_SubCatalogue" FromRole="SubCatalogue" ToRole="Option" />
         </EntityType>
         <EntityType Name="SubscriptionType">
           <Key>
@@ -466,10 +460,11 @@
           <Property Name="QuantityInvitations" Type="Int32" Nullable="false" />
           <Property Name="ChecklistId" Type="Int32" Nullable="false" />
           <Property Name="CatalogueId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Budget" Relationship="Self.FK_Wedding_Budget" FromRole="Wedding" ToRole="Budget" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK_Activity_Wedding" FromRole="Wedding" ToRole="Activity" />
           <NavigationProperty Name="Catalogue" Relationship="Self.FK_Wedding_Catalogue" FromRole="Wedding" ToRole="Catalogue" />
-          <NavigationProperty Name="Checklist" Relationship="Self.FK_Wedding_Checklist" FromRole="Wedding" ToRole="Checklist" />
-          <NavigationProperty Name="Couple" Relationship="Self.FK_Wedding_Couple" FromRole="Wedding" ToRole="Couple" />
+          <NavigationProperty Name="Couple" Relationship="Self.FK_Couple_Wedding" FromRole="Wedding" ToRole="Couple" />
+          <NavigationProperty Name="Couple1" Relationship="Self.FK_Wedding_Couple" FromRole="Wedding" ToRole="Couple" />
+          <NavigationProperty Name="Expense" Relationship="Self.FK_Expense_Wedding" FromRole="Wedding" ToRole="Expense" />
         </EntityType>
         <EntityType Name="WPlanner">
           <Key>
@@ -493,58 +488,34 @@
           <Property Name="WPlannerCompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SubscriptionTypeId" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="SubscriptionType" Relationship="Self.FK_WPlannerCompany_SubscriptionType" FromRole="WPlannerCompany" ToRole="SubscriptionType" />
           <NavigationProperty Name="WPlanner" Relationship="Self.FK_WPlanner_WPlannerCompany" FromRole="WPlannerCompany" ToRole="WPlanner" />
         </EntityType>
-        <Association Name="FK_Activity_Checklist">
-          <End Role="Checklist" Type="Self.Checklist" Multiplicity="1" />
+        <Association Name="FK_Activity_Wedding">
+          <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
           <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Checklist">
-              <PropertyRef Name="ChecklistId" />
+            <Principal Role="Wedding">
+              <PropertyRef Name="WeddingId" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="ChecklistId" />
+              <PropertyRef Name="WeddingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Expense_Budget">
-          <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
-          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Budget">
-              <PropertyRef Name="BudgetId" />
-            </Principal>
-            <Dependent Role="Expense">
-              <PropertyRef Name="BudgetId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Wedding_Budget">
-          <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
-          <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Budget">
-              <PropertyRef Name="BudgetId" />
-            </Principal>
-            <Dependent Role="Wedding">
-              <PropertyRef Name="BudgetId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SubCatalogue_Catalogue">
+        <Association Name="FK_CatalogueXOption_Catalogue">
           <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
-          <End Role="SubCatalogue" Type="Self.SubCatalogue" Multiplicity="*" />
+          <End Role="CatalogueXOption" Type="Self.CatalogueXOption" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Catalogue">
               <PropertyRef Name="CatalogueId" />
             </Principal>
-            <Dependent Role="SubCatalogue">
+            <Dependent Role="CatalogueXOption">
               <PropertyRef Name="CatalogueId" />
             </Dependent>
           </ReferentialConstraint>
@@ -561,15 +532,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Wedding_Checklist">
-          <End Role="Checklist" Type="Self.Checklist" Multiplicity="1" />
-          <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
+        <Association Name="FK_CatalogueXOption_Option">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="CatalogueXOption" Type="Self.CatalogueXOption" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Checklist">
-              <PropertyRef Name="ChecklistId" />
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
             </Principal>
-            <Dependent Role="Wedding">
-              <PropertyRef Name="ChecklistId" />
+            <Dependent Role="CatalogueXOption">
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Couple_Wedding">
+          <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
+          <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wedding">
+              <PropertyRef Name="WeddingId" />
+            </Principal>
+            <Dependent Role="Couple">
+              <PropertyRef Name="WeddingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -597,15 +580,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Option_SubCatalogue">
-          <End Role="SubCatalogue" Type="Self.SubCatalogue" Multiplicity="1" />
+        <Association Name="FK_Expense_Wedding">
+          <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
+          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wedding">
+              <PropertyRef Name="WeddingId" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="WeddingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Option_OptType">
+          <End Role="OptType" Type="Self.OptType" Multiplicity="1" />
           <End Role="Option" Type="Self.Option" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SubCatalogue">
-              <PropertyRef Name="SubCatalogueId" />
+            <Principal Role="OptType">
+              <PropertyRef Name="OptionTypeId" />
             </Principal>
             <Dependent Role="Option">
-              <PropertyRef Name="SubCatalogueId" />
+              <PropertyRef Name="OptionTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -647,41 +642,36 @@
         </Association>
         <EntityContainer Name="WPlanningDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Activity" EntityType="Self.Activity" />
-          <EntitySet Name="Budget" EntityType="Self.Budget" />
           <EntitySet Name="Catalogue" EntityType="Self.Catalogue" />
-          <EntitySet Name="Checklist" EntityType="Self.Checklist" />
+          <EntitySet Name="CatalogueXOption" EntityType="Self.CatalogueXOption" />
           <EntitySet Name="Couple" EntityType="Self.Couple" />
           <EntitySet Name="Expense" EntityType="Self.Expense" />
           <EntitySet Name="Option" EntityType="Self.Option" />
+          <EntitySet Name="OptType" EntityType="Self.OptType" />
           <EntitySet Name="Person" EntityType="Self.Person" />
-          <EntitySet Name="SubCatalogue" EntityType="Self.SubCatalogue" />
           <EntitySet Name="SubscriptionType" EntityType="Self.SubscriptionType" />
           <EntitySet Name="Wedding" EntityType="Self.Wedding" />
           <EntitySet Name="WPlanner" EntityType="Self.WPlanner" />
           <EntitySet Name="WPlannerCompany" EntityType="Self.WPlannerCompany" />
-          <AssociationSet Name="FK_Activity_Checklist" Association="Self.FK_Activity_Checklist">
-            <End Role="Checklist" EntitySet="Checklist" />
+          <AssociationSet Name="FK_Activity_Wedding" Association="Self.FK_Activity_Wedding">
+            <End Role="Wedding" EntitySet="Wedding" />
             <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
-          <AssociationSet Name="FK_Expense_Budget" Association="Self.FK_Expense_Budget">
-            <End Role="Budget" EntitySet="Budget" />
-            <End Role="Expense" EntitySet="Expense" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Budget" Association="Self.FK_Wedding_Budget">
-            <End Role="Budget" EntitySet="Budget" />
-            <End Role="Wedding" EntitySet="Wedding" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SubCatalogue_Catalogue" Association="Self.FK_SubCatalogue_Catalogue">
+          <AssociationSet Name="FK_CatalogueXOption_Catalogue" Association="Self.FK_CatalogueXOption_Catalogue">
             <End Role="Catalogue" EntitySet="Catalogue" />
-            <End Role="SubCatalogue" EntitySet="SubCatalogue" />
+            <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
           </AssociationSet>
           <AssociationSet Name="FK_Wedding_Catalogue" Association="Self.FK_Wedding_Catalogue">
             <End Role="Catalogue" EntitySet="Catalogue" />
             <End Role="Wedding" EntitySet="Wedding" />
           </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Checklist" Association="Self.FK_Wedding_Checklist">
-            <End Role="Checklist" EntitySet="Checklist" />
+          <AssociationSet Name="FK_CatalogueXOption_Option" Association="Self.FK_CatalogueXOption_Option">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Couple_Wedding" Association="Self.FK_Couple_Wedding">
             <End Role="Wedding" EntitySet="Wedding" />
+            <End Role="Couple" EntitySet="Couple" />
           </AssociationSet>
           <AssociationSet Name="FK_Couple_WPlanner" Association="Self.FK_Couple_WPlanner">
             <End Role="WPlanner" EntitySet="WPlanner" />
@@ -691,8 +681,12 @@
             <End Role="Couple" EntitySet="Couple" />
             <End Role="Wedding" EntitySet="Wedding" />
           </AssociationSet>
-          <AssociationSet Name="FK_Option_SubCatalogue" Association="Self.FK_Option_SubCatalogue">
-            <End Role="SubCatalogue" EntitySet="SubCatalogue" />
+          <AssociationSet Name="FK_Expense_Wedding" Association="Self.FK_Expense_Wedding">
+            <End Role="Wedding" EntitySet="Wedding" />
+            <End Role="Expense" EntitySet="Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Option_OptType" Association="Self.FK_Option_OptType">
+            <End Role="OptType" EntitySet="OptType" />
             <End Role="Option" EntitySet="Option" />
           </AssociationSet>
           <AssociationSet Name="FK_WPlanner_Person" Association="Self.FK_WPlanner_Person">
@@ -721,14 +715,7 @@
                 <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Done" ColumnName="Done" />
-                <ScalarProperty Name="ChecklistId" ColumnName="ChecklistId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Budget">
-            <EntityTypeMapping TypeName="WPlanningDBModel.Budget">
-              <MappingFragment StoreEntitySet="Budget">
-                <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+                <ScalarProperty Name="WeddingId" ColumnName="WeddingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -737,13 +724,17 @@
               <MappingFragment StoreEntitySet="Catalogue">
                 <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
                 <ScalarProperty Name="CatalogueName" ColumnName="CatalogueName" />
+                <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+                <ScalarProperty Name="BriefDescription" ColumnName="BriefDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Checklist">
-            <EntityTypeMapping TypeName="WPlanningDBModel.Checklist">
-              <MappingFragment StoreEntitySet="Checklist">
-                <ScalarProperty Name="ChecklistId" ColumnName="ChecklistId" />
+          <EntitySetMapping Name="CatalogueXOption">
+            <EntityTypeMapping TypeName="WPlanningDBModel.CatalogueXOption">
+              <MappingFragment StoreEntitySet="CatalogueXOption">
+                <ScalarProperty Name="CatalogueXOptionId" ColumnName="CatalogueXOptionId" />
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -759,6 +750,7 @@
                 <ScalarProperty Name="LastNameIdentifier" ColumnName="LastNameIdentifier" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="WeddingId" ColumnName="WeddingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -767,9 +759,8 @@
               <MappingFragment StoreEntitySet="Expense">
                 <ScalarProperty Name="ExpenseId" ColumnName="ExpenseId" />
                 <ScalarProperty Name="ExpenseName" ColumnName="ExpenseName" />
-                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
-                <ScalarProperty Name="EstimatedPrice" ColumnName="EstimatedPrice" />
-                <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="WeddingId" ColumnName="WeddingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -777,9 +768,18 @@
             <EntityTypeMapping TypeName="WPlanningDBModel.Option">
               <MappingFragment StoreEntitySet="Option">
                 <ScalarProperty Name="OptionId" ColumnName="OptionId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OptionTypeId" ColumnName="OptionTypeId" />
                 <ScalarProperty Name="Chosen" ColumnName="Chosen" />
-                <ScalarProperty Name="SubCatalogueId" ColumnName="SubCatalogueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OptType">
+            <EntityTypeMapping TypeName="WPlanningDBModel.OptType">
+              <MappingFragment StoreEntitySet="OptType">
+                <ScalarProperty Name="OptionTypeId" ColumnName="OptionTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -791,15 +791,6 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SubCatalogue">
-            <EntityTypeMapping TypeName="WPlanningDBModel.SubCatalogue">
-              <MappingFragment StoreEntitySet="SubCatalogue">
-                <ScalarProperty Name="SubCatalogueId" ColumnName="SubCatalogueId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -849,7 +840,7 @@
                 <ScalarProperty Name="WPlannerCompanyId" ColumnName="WPlannerCompanyId" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="SubscriptionTypeId" ColumnName="SubscriptionTypeId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Usr" ColumnName="Usr" />

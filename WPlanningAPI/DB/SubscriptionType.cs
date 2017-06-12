@@ -7,26 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models.DB
+namespace WPlanningAPI.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Catalogue
+    public partial class SubscriptionType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Catalogue()
+        public SubscriptionType()
         {
-            this.SubCatalogue = new HashSet<SubCatalogue>();
-            this.Wedding = new HashSet<Wedding>();
+            this.WPlannerCompany = new HashSet<WPlannerCompany>();
         }
     
-        public int CatalogueId { get; set; }
-        public string CatalogueName { get; set; }
+        public int SubscriptionTypeId { get; set; }
+        public int Months { get; set; }
+        public int QuantityWPlanners { get; set; }
+        public string Description { get; set; }
+        public string Name { get; set; }
+        public double Cost { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubCatalogue> SubCatalogue { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wedding> Wedding { get; set; }
+        public virtual ICollection<WPlannerCompany> WPlannerCompany { get; set; }
     }
 }

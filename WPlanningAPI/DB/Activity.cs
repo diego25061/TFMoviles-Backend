@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models.DB
+namespace WPlanningAPI.DB
 {
     using System;
     using System.Collections.Generic;
@@ -18,8 +18,8 @@ namespace WPlanningAPI.Models.DB
         public string ActivityName { get; set; }
         public System.DateTime Date { get; set; }
         public bool Done { get; set; }
-        public int ChecklistId { get; set; }
+        public int WeddingId { get; set; }
     
-        public virtual Checklist Checklist { get; set; }
+        public virtual Wedding Wedding { get; set; }
     }
 }

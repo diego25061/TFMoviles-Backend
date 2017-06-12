@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using WPlanningAPI.Models.DB;
+using WPlanningAPI.DB;
 
 namespace WPlanningAPI.Models
 {
@@ -62,7 +62,11 @@ namespace WPlanningAPI.Models
                 planner.Person = Person.buildFromDb(dbPlanner.Person);
             return planner;
         }
-
+        /*
+        public object getJsonObjectNoPass()
+        {
+            return new { User = "asd" };
+        }*/
 
         /// <summary>
         /// 48-57

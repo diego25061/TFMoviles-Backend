@@ -8,11 +8,11 @@ namespace WPlanningAPI.Models
     public class WPlannerCompany
     {
         public string Name { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
         public string Email { get; set; }
         public string User { get; set; }
         public string Password { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
         public SubscriptionType SubscriptionType { get; set; }
         public List<WPlanner> WPlannerList { get; set; }
 
@@ -22,7 +22,7 @@ namespace WPlanningAPI.Models
             {
                 Name = DbCompany.CompanyName,
                 Address = DbCompany.Address,
-                Phone = DbCompany.Telephone,
+                Phone = DbCompany.Phone,
                 Email = DbCompany.Email,
                 User = DbCompany.Usr,
                 Password = DbCompany.Password,

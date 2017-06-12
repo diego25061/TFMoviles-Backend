@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models.DB
+namespace WPlanningAPI.DB
 {
     using System;
     using System.Data.Entity;
@@ -26,14 +26,13 @@ namespace WPlanningAPI.Models.DB
         }
     
         public virtual DbSet<Activity> Activity { get; set; }
-        public virtual DbSet<Budget> Budget { get; set; }
         public virtual DbSet<Catalogue> Catalogue { get; set; }
-        public virtual DbSet<Checklist> Checklist { get; set; }
+        public virtual DbSet<CatalogueXOption> CatalogueXOption { get; set; }
         public virtual DbSet<Couple> Couple { get; set; }
         public virtual DbSet<Expense> Expense { get; set; }
         public virtual DbSet<Option> Option { get; set; }
+        public virtual DbSet<OptType> OptType { get; set; }
         public virtual DbSet<Person> Person { get; set; }
-        public virtual DbSet<SubCatalogue> SubCatalogue { get; set; }
         public virtual DbSet<SubscriptionType> SubscriptionType { get; set; }
         public virtual DbSet<Wedding> Wedding { get; set; }
         public virtual DbSet<WPlanner> WPlanner { get; set; }

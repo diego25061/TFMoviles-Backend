@@ -7,29 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models.DB
+namespace WPlanningAPI.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class WPlannerCompany
+    public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public WPlannerCompany()
+        public Person()
         {
             this.WPlanner = new HashSet<WPlanner>();
         }
     
-        public int WPlannerCompanyId { get; set; }
-        public string CompanyName { get; set; }
-        public string Address { get; set; }
-        public string Telephone { get; set; }
-        public int SubscriptionTypeId { get; set; }
+        public int PersonId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
-        public string Usr { get; set; }
-        public string Password { get; set; }
+        public string Phone { get; set; }
     
-        public virtual SubscriptionType SubscriptionType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WPlanner> WPlanner { get; set; }
     }

@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models.DB
+namespace WPlanningAPI.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Option
+    public partial class Expense
     {
-        public int OptionId { get; set; }
-        public string Description { get; set; }
-        public bool Chosen { get; set; }
-        public int SubCatalogueId { get; set; }
+        public int ExpenseId { get; set; }
+        public string ExpenseName { get; set; }
+        public double Price { get; set; }
+        public int WeddingId { get; set; }
     
-        public virtual SubCatalogue SubCatalogue { get; set; }
+        public virtual Wedding Wedding { get; set; }
     }
 }

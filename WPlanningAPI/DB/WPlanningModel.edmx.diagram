@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e2acba20d2c4c7893dff9ee2b32e6bf" Name="Diagram1">
+        <EntityTypeShape EntityType="WPlanningDBModel.Activity" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.Catalogue" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.CatalogueXOption" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.Couple" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.Expense" Width="1.5" PointX="8.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.Option" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.OptType" Width="1.5" PointX="1.5" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.Person" Width="1.5" PointX="6.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.SubscriptionType" Width="1.5" PointX="4.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.Wedding" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.WPlanner" Width="1.5" PointX="9" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WPlanningDBModel.WPlannerCompany" Width="1.5" PointX="6.75" PointY="17.125" IsExpanded="true" />
+        <AssociationConnector Association="WPlanningDBModel.FK_Activity_Wedding" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_CatalogueXOption_Catalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_Wedding_Catalogue" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_CatalogueXOption_Option" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_Couple_Wedding" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_Couple_WPlanner" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_Wedding_Couple" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_Expense_Wedding" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_Option_OptType" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_WPlanner_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_WPlannerCompany_SubscriptionType" ManuallyRouted="false" />
+        <AssociationConnector Association="WPlanningDBModel.FK_WPlanner_WPlannerCompany" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

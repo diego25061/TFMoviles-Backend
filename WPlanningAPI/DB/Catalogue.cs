@@ -7,24 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPlanningAPI.Models.DB
+namespace WPlanningAPI.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Checklist
+    public partial class Catalogue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Checklist()
+        public Catalogue()
         {
-            this.Activity = new HashSet<Activity>();
+            this.CatalogueXOption = new HashSet<CatalogueXOption>();
             this.Wedding = new HashSet<Wedding>();
         }
     
-        public int ChecklistId { get; set; }
+        public int CatalogueId { get; set; }
+        public string CatalogueName { get; set; }
+        public string ImageLink { get; set; }
+        public string BriefDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity> Activity { get; set; }
+        public virtual ICollection<CatalogueXOption> CatalogueXOption { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wedding> Wedding { get; set; }
     }

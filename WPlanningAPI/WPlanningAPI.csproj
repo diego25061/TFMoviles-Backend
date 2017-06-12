@@ -238,63 +238,61 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SubscriptionTypeController.cs" />
     <Compile Include="Controllers\WPlannerController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB\Activity.cs">
+    <Compile Include="DB\Activity.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Budget.cs">
+    <Compile Include="DB\Catalogue.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Catalogue.cs">
+    <Compile Include="DB\CatalogueXOption.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Checklist.cs">
+    <Compile Include="DB\Couple.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Couple.cs">
+    <Compile Include="DB\Expense.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Expense.cs">
+    <Compile Include="DB\Option.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Option.cs">
+    <Compile Include="DB\OptType.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Person.cs">
+    <Compile Include="DB\Person.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\SubCatalogue.cs">
+    <Compile Include="DB\SubscriptionType.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\SubscriptionType.cs">
+    <Compile Include="DB\Wedding.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\Wedding.cs">
+    <Compile Include="DB\WPlanner.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\WPlanner.cs">
+    <Compile Include="DB\WPlannerCompany.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\WPlannerCompany.cs">
-      <DependentUpon>WPlanningModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB\WPlanningModel.Context.cs">
+    <Compile Include="DB\WPlanningModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WPlanningModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\WPlanningModel.cs">
+    <Compile Include="DB\WPlanningModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DB\WPlanningModel.Designer.cs">
+    <Compile Include="DB\WPlanningModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WPlanningModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Couple.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SubscriptionType.cs" />
     <Compile Include="Models\WPlanner.cs" />
@@ -306,18 +304,18 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
-    <Content Include="Models\DB\WPlanningModel.Context.tt">
+    <Content Include="DB\WPlanningModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WPlanningModel.edmx</DependentUpon>
       <LastGenOutput>WPlanningModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DB\WPlanningModel.tt">
+    <Content Include="DB\WPlanningModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WPlanningModel.edmx</DependentUpon>
       <LastGenOutput>WPlanningModel.cs</LastGenOutput>
     </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -342,11 +340,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\DB\WPlanningModel.edmx">
+    <EntityDeploy Include="DB\WPlanningModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>WPlanningModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DB\WPlanningModel.edmx.diagram">
+    <Content Include="DB\WPlanningModel.edmx.diagram">
       <DependentUpon>WPlanningModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -360,7 +358,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

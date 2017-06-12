@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WPlanningAPI.Models.DB ;
+using WPlanningAPI.DB ;
 
 namespace WPlanningAPI.Controllers
 {
@@ -14,7 +14,7 @@ namespace WPlanningAPI.Controllers
         {
             var db = new WPlanningDBEntities();
             List<Models.WPlanner> wPlannersList = new List<Models.WPlanner>();
-            var dbList = db.WPlanner.ToList<Models.DB.WPlanner>();
+            var dbList = db.WPlanner.ToList<DB.WPlanner>();
             foreach ( var dbPlanner in dbList){
                 wPlannersList.Add(Models.WPlanner.buildFromDb(dbPlanner));
             }
