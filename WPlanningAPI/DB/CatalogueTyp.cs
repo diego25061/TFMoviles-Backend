@@ -12,22 +12,20 @@ namespace WPlanningAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Catalogue
+    public partial class CatalogueTyp
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Catalogue()
+        public CatalogueTyp()
         {
-            this.CatalogueXOption = new HashSet<CatalogueXOption>();
-            this.CatalogueXWeddin = new HashSet<CatalogueXWeddin>();
+            this.Catalogue = new HashSet<Catalogue>();
         }
     
-        public int CatalogueId { get; set; }
-        public int TypeId { get; set; }
+        public int CatalogueTypeId { get; set; }
+        public string Title { get; set; }
+        public string ImageLink { get; set; }
+        public string BriefDescription { get; set; }
     
-        public virtual CatalogueTyp CatalogueTyp { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CatalogueXOption> CatalogueXOption { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CatalogueXWeddin> CatalogueXWeddin { get; set; }
+        public virtual ICollection<Catalogue> Catalogue { get; set; }
     }
 }

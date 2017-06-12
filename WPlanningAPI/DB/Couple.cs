@@ -17,7 +17,7 @@ namespace WPlanningAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Couple()
         {
-            this.Wedding1 = new HashSet<Wedding>();
+            this.Wedding = new HashSet<Wedding>();
         }
     
         public int CoupleId { get; set; }
@@ -29,11 +29,9 @@ namespace WPlanningAPI.DB
         public string LastNameIdentifier { get; set; }
         public string Status { get; set; }
         public string Phone { get; set; }
-        public int WeddingId { get; set; }
     
-        public virtual Wedding Wedding { get; set; }
         public virtual WPlanner WPlanner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wedding> Wedding1 { get; set; }
+        public virtual ICollection<Wedding> Wedding { get; set; }
     }
 }

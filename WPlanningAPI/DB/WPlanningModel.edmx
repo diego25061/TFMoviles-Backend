@@ -20,7 +20,14 @@
             <PropertyRef Name="CatalogueId" />
           </Key>
           <Property Name="CatalogueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CatalogueName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatalogueTyp">
+          <Key>
+            <PropertyRef Name="CatalogueTypeId" />
+          </Key>
+          <Property Name="CatalogueTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ImageLink" Type="varchar(max)" />
           <Property Name="BriefDescription" Type="varchar" MaxLength="40" />
         </EntityType>
@@ -31,6 +38,14 @@
           <Property Name="CatalogueXOptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CatalogueId" Type="int" Nullable="false" />
           <Property Name="OptionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatalogueXWeddin">
+          <Key>
+            <PropertyRef Name="CatalogueXWeddingId" />
+          </Key>
+          <Property Name="CatalogueXWeddingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogueId" Type="int" Nullable="false" />
+          <Property Name="WeddingId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Couple">
           <Key>
@@ -45,7 +60,6 @@
           <Property Name="LastNameIdentifier" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="WeddingId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Expense">
           <Key>
@@ -72,6 +86,7 @@
           <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="Cost" Type="float" Nullable="false" />
           <Property Name="ImageLink" Type="varchar(max)" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -102,11 +117,8 @@
           <Property Name="CoupleId" Type="int" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="InitialBudget" Type="float" Nullable="false" />
-          <Property Name="BudgetId" Type="int" Nullable="false" />
           <Property Name="Location" Type="varchar" MaxLength="250" />
           <Property Name="QuantityInvitations" Type="int" Nullable="false" />
-          <Property Name="ChecklistId" Type="int" Nullable="false" />
-          <Property Name="CatalogueId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="WPlanner">
           <Key>
@@ -145,7 +157,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CatalogueXOption_Catalogue">
+        <Association Name="FK_Catalogue_CatalogueTyp">
+          <End Role="CatalogueTyp" Type="Self.CatalogueTyp" Multiplicity="1" />
+          <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogueTyp">
+              <PropertyRef Name="CatalogueTypeId" />
+            </Principal>
+            <Dependent Role="Catalogue">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatalogueXOption_Catalogue1">
           <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
           <End Role="CatalogueXOption" Type="Self.CatalogueXOption" Multiplicity="*" />
           <ReferentialConstraint>
@@ -169,14 +193,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Couple_Wedding">
+        <Association Name="FK_CatalogueXWeddin_Catalogue">
+          <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
+          <End Role="CatalogueXWeddin" Type="Self.CatalogueXWeddin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catalogue">
+              <PropertyRef Name="CatalogueId" />
+            </Principal>
+            <Dependent Role="CatalogueXWeddin">
+              <PropertyRef Name="CatalogueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatalogueXWeddin_Wedding">
           <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
-          <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
+          <End Role="CatalogueXWeddin" Type="Self.CatalogueXWeddin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wedding">
               <PropertyRef Name="WeddingId" />
             </Principal>
-            <Dependent Role="Couple">
+            <Dependent Role="CatalogueXWeddin">
               <PropertyRef Name="WeddingId" />
             </Dependent>
           </ReferentialConstraint>
@@ -217,19 +253,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Wedding_Catalogue">
-          <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
-          <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Catalogue">
-              <PropertyRef Name="CatalogueId" />
-            </Principal>
-            <Dependent Role="Wedding">
-              <PropertyRef Name="CatalogueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Wedding_Couple">
+        <Association Name="FK_Wedding_Couple1">
           <End Role="Couple" Type="Self.Couple" Multiplicity="1" />
           <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
           <ReferentialConstraint>
@@ -277,10 +301,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="WPlanningDBModelStoreContainer">
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Catalogue" EntityType="Self.Catalogue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatalogueTyp" EntityType="Self.CatalogueTyp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CatalogueXOption" EntityType="Self.CatalogueXOption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatalogueXWeddin" EntityType="Self.CatalogueXWeddin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Couple" EntityType="Self.Couple" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
@@ -294,7 +351,11 @@
             <End Role="Wedding" EntitySet="Wedding" />
             <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
-          <AssociationSet Name="FK_CatalogueXOption_Catalogue" Association="Self.FK_CatalogueXOption_Catalogue">
+          <AssociationSet Name="FK_Catalogue_CatalogueTyp" Association="Self.FK_Catalogue_CatalogueTyp">
+            <End Role="CatalogueTyp" EntitySet="CatalogueTyp" />
+            <End Role="Catalogue" EntitySet="Catalogue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatalogueXOption_Catalogue1" Association="Self.FK_CatalogueXOption_Catalogue1">
             <End Role="Catalogue" EntitySet="Catalogue" />
             <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
           </AssociationSet>
@@ -302,9 +363,13 @@
             <End Role="Option" EntitySet="Option" />
             <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
           </AssociationSet>
-          <AssociationSet Name="FK_Couple_Wedding" Association="Self.FK_Couple_Wedding">
+          <AssociationSet Name="FK_CatalogueXWeddin_Catalogue" Association="Self.FK_CatalogueXWeddin_Catalogue">
+            <End Role="Catalogue" EntitySet="Catalogue" />
+            <End Role="CatalogueXWeddin" EntitySet="CatalogueXWeddin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatalogueXWeddin_Wedding" Association="Self.FK_CatalogueXWeddin_Wedding">
             <End Role="Wedding" EntitySet="Wedding" />
-            <End Role="Couple" EntitySet="Couple" />
+            <End Role="CatalogueXWeddin" EntitySet="CatalogueXWeddin" />
           </AssociationSet>
           <AssociationSet Name="FK_Couple_WPlanner" Association="Self.FK_Couple_WPlanner">
             <End Role="WPlanner" EntitySet="WPlanner" />
@@ -318,11 +383,7 @@
             <End Role="OptType" EntitySet="OptType" />
             <End Role="Option" EntitySet="Option" />
           </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Catalogue" Association="Self.FK_Wedding_Catalogue">
-            <End Role="Catalogue" EntitySet="Catalogue" />
-            <End Role="Wedding" EntitySet="Wedding" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Couple" Association="Self.FK_Wedding_Couple">
+          <AssociationSet Name="FK_Wedding_Couple1" Association="Self.FK_Wedding_Couple1">
             <End Role="Couple" EntitySet="Couple" />
             <End Role="Wedding" EntitySet="Wedding" />
           </AssociationSet>
@@ -360,11 +421,20 @@
             <PropertyRef Name="CatalogueId" />
           </Key>
           <Property Name="CatalogueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CatalogueName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CatalogueTyp" Relationship="Self.FK_Catalogue_CatalogueTyp" FromRole="Catalogue" ToRole="CatalogueTyp" />
+          <NavigationProperty Name="CatalogueXOption" Relationship="Self.FK_CatalogueXOption_Catalogue1" FromRole="Catalogue" ToRole="CatalogueXOption" />
+          <NavigationProperty Name="CatalogueXWeddin" Relationship="Self.FK_CatalogueXWeddin_Catalogue" FromRole="Catalogue" ToRole="CatalogueXWeddin" />
+        </EntityType>
+        <EntityType Name="CatalogueTyp">
+          <Key>
+            <PropertyRef Name="CatalogueTypeId" />
+          </Key>
+          <Property Name="CatalogueTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="BriefDescription" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CatalogueXOption" Relationship="Self.FK_CatalogueXOption_Catalogue" FromRole="Catalogue" ToRole="CatalogueXOption" />
-          <NavigationProperty Name="Wedding" Relationship="Self.FK_Wedding_Catalogue" FromRole="Catalogue" ToRole="Wedding" />
+          <NavigationProperty Name="Catalogue" Relationship="Self.FK_Catalogue_CatalogueTyp" FromRole="CatalogueTyp" ToRole="Catalogue" />
         </EntityType>
         <EntityType Name="CatalogueXOption">
           <Key>
@@ -373,8 +443,18 @@
           <Property Name="CatalogueXOptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CatalogueId" Type="Int32" Nullable="false" />
           <Property Name="OptionId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Catalogue" Relationship="Self.FK_CatalogueXOption_Catalogue" FromRole="CatalogueXOption" ToRole="Catalogue" />
+          <NavigationProperty Name="Catalogue" Relationship="Self.FK_CatalogueXOption_Catalogue1" FromRole="CatalogueXOption" ToRole="Catalogue" />
           <NavigationProperty Name="Option" Relationship="Self.FK_CatalogueXOption_Option" FromRole="CatalogueXOption" ToRole="Option" />
+        </EntityType>
+        <EntityType Name="CatalogueXWeddin">
+          <Key>
+            <PropertyRef Name="CatalogueXWeddingId" />
+          </Key>
+          <Property Name="CatalogueXWeddingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
+          <Property Name="WeddingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Catalogue" Relationship="Self.FK_CatalogueXWeddin_Catalogue" FromRole="CatalogueXWeddin" ToRole="Catalogue" />
+          <NavigationProperty Name="Wedding" Relationship="Self.FK_CatalogueXWeddin_Wedding" FromRole="CatalogueXWeddin" ToRole="Wedding" />
         </EntityType>
         <EntityType Name="Couple">
           <Key>
@@ -389,10 +469,8 @@
           <Property Name="LastNameIdentifier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="WeddingId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Wedding" Relationship="Self.FK_Couple_Wedding" FromRole="Couple" ToRole="Wedding" />
           <NavigationProperty Name="WPlanner" Relationship="Self.FK_Couple_WPlanner" FromRole="Couple" ToRole="WPlanner" />
-          <NavigationProperty Name="Wedding1" Relationship="Self.FK_Wedding_Couple" FromRole="Couple" ToRole="Wedding" />
+          <NavigationProperty Name="Wedding" Relationship="Self.FK_Wedding_Couple1" FromRole="Couple" ToRole="Wedding" />
         </EntityType>
         <EntityType Name="Expense">
           <Key>
@@ -422,6 +500,7 @@
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Cost" Type="Double" Nullable="false" />
           <Property Name="ImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Option" Relationship="Self.FK_Option_OptType" FromRole="OptType" ToRole="Option" />
         </EntityType>
         <EntityType Name="Person">
@@ -455,15 +534,11 @@
           <Property Name="CoupleId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="InitialBudget" Type="Double" Nullable="false" />
-          <Property Name="BudgetId" Type="Int32" Nullable="false" />
           <Property Name="Location" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="QuantityInvitations" Type="Int32" Nullable="false" />
-          <Property Name="ChecklistId" Type="Int32" Nullable="false" />
-          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="Self.FK_Activity_Wedding" FromRole="Wedding" ToRole="Activity" />
-          <NavigationProperty Name="Catalogue" Relationship="Self.FK_Wedding_Catalogue" FromRole="Wedding" ToRole="Catalogue" />
-          <NavigationProperty Name="Couple" Relationship="Self.FK_Couple_Wedding" FromRole="Wedding" ToRole="Couple" />
-          <NavigationProperty Name="Couple1" Relationship="Self.FK_Wedding_Couple" FromRole="Wedding" ToRole="Couple" />
+          <NavigationProperty Name="CatalogueXWeddin" Relationship="Self.FK_CatalogueXWeddin_Wedding" FromRole="Wedding" ToRole="CatalogueXWeddin" />
+          <NavigationProperty Name="Couple" Relationship="Self.FK_Wedding_Couple1" FromRole="Wedding" ToRole="Couple" />
           <NavigationProperty Name="Expense" Relationship="Self.FK_Expense_Wedding" FromRole="Wedding" ToRole="Expense" />
         </EntityType>
         <EntityType Name="WPlanner">
@@ -508,7 +583,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CatalogueXOption_Catalogue">
+        <Association Name="FK_Catalogue_CatalogueTyp">
+          <End Role="CatalogueTyp" Type="Self.CatalogueTyp" Multiplicity="1" />
+          <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogueTyp">
+              <PropertyRef Name="CatalogueTypeId" />
+            </Principal>
+            <Dependent Role="Catalogue">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatalogueXOption_Catalogue1">
           <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
           <End Role="CatalogueXOption" Type="Self.CatalogueXOption" Multiplicity="*" />
           <ReferentialConstraint>
@@ -520,14 +607,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Wedding_Catalogue">
+        <Association Name="FK_CatalogueXWeddin_Catalogue">
           <End Role="Catalogue" Type="Self.Catalogue" Multiplicity="1" />
-          <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
+          <End Role="CatalogueXWeddin" Type="Self.CatalogueXWeddin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Catalogue">
               <PropertyRef Name="CatalogueId" />
             </Principal>
-            <Dependent Role="Wedding">
+            <Dependent Role="CatalogueXWeddin">
               <PropertyRef Name="CatalogueId" />
             </Dependent>
           </ReferentialConstraint>
@@ -544,14 +631,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Couple_Wedding">
+        <Association Name="FK_CatalogueXWeddin_Wedding">
           <End Role="Wedding" Type="Self.Wedding" Multiplicity="1" />
-          <End Role="Couple" Type="Self.Couple" Multiplicity="*" />
+          <End Role="CatalogueXWeddin" Type="Self.CatalogueXWeddin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wedding">
               <PropertyRef Name="WeddingId" />
             </Principal>
-            <Dependent Role="Couple">
+            <Dependent Role="CatalogueXWeddin">
               <PropertyRef Name="WeddingId" />
             </Dependent>
           </ReferentialConstraint>
@@ -568,7 +655,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Wedding_Couple">
+        <Association Name="FK_Wedding_Couple1">
           <End Role="Couple" Type="Self.Couple" Multiplicity="1" />
           <End Role="Wedding" Type="Self.Wedding" Multiplicity="*" />
           <ReferentialConstraint>
@@ -643,7 +730,9 @@
         <EntityContainer Name="WPlanningDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Activity" EntityType="Self.Activity" />
           <EntitySet Name="Catalogue" EntityType="Self.Catalogue" />
+          <EntitySet Name="CatalogueTyp" EntityType="Self.CatalogueTyp" />
           <EntitySet Name="CatalogueXOption" EntityType="Self.CatalogueXOption" />
+          <EntitySet Name="CatalogueXWeddin" EntityType="Self.CatalogueXWeddin" />
           <EntitySet Name="Couple" EntityType="Self.Couple" />
           <EntitySet Name="Expense" EntityType="Self.Expense" />
           <EntitySet Name="Option" EntityType="Self.Option" />
@@ -657,27 +746,31 @@
             <End Role="Wedding" EntitySet="Wedding" />
             <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
-          <AssociationSet Name="FK_CatalogueXOption_Catalogue" Association="Self.FK_CatalogueXOption_Catalogue">
+          <AssociationSet Name="FK_Catalogue_CatalogueTyp" Association="Self.FK_Catalogue_CatalogueTyp">
+            <End Role="CatalogueTyp" EntitySet="CatalogueTyp" />
+            <End Role="Catalogue" EntitySet="Catalogue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatalogueXOption_Catalogue1" Association="Self.FK_CatalogueXOption_Catalogue1">
             <End Role="Catalogue" EntitySet="Catalogue" />
             <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
           </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Catalogue" Association="Self.FK_Wedding_Catalogue">
+          <AssociationSet Name="FK_CatalogueXWeddin_Catalogue" Association="Self.FK_CatalogueXWeddin_Catalogue">
             <End Role="Catalogue" EntitySet="Catalogue" />
-            <End Role="Wedding" EntitySet="Wedding" />
+            <End Role="CatalogueXWeddin" EntitySet="CatalogueXWeddin" />
           </AssociationSet>
           <AssociationSet Name="FK_CatalogueXOption_Option" Association="Self.FK_CatalogueXOption_Option">
             <End Role="Option" EntitySet="Option" />
             <End Role="CatalogueXOption" EntitySet="CatalogueXOption" />
           </AssociationSet>
-          <AssociationSet Name="FK_Couple_Wedding" Association="Self.FK_Couple_Wedding">
+          <AssociationSet Name="FK_CatalogueXWeddin_Wedding" Association="Self.FK_CatalogueXWeddin_Wedding">
             <End Role="Wedding" EntitySet="Wedding" />
-            <End Role="Couple" EntitySet="Couple" />
+            <End Role="CatalogueXWeddin" EntitySet="CatalogueXWeddin" />
           </AssociationSet>
           <AssociationSet Name="FK_Couple_WPlanner" Association="Self.FK_Couple_WPlanner">
             <End Role="WPlanner" EntitySet="WPlanner" />
             <End Role="Couple" EntitySet="Couple" />
           </AssociationSet>
-          <AssociationSet Name="FK_Wedding_Couple" Association="Self.FK_Wedding_Couple">
+          <AssociationSet Name="FK_Wedding_Couple1" Association="Self.FK_Wedding_Couple1">
             <End Role="Couple" EntitySet="Couple" />
             <End Role="Wedding" EntitySet="Wedding" />
           </AssociationSet>
@@ -701,7 +794,48 @@
             <End Role="WPlannerCompany" EntitySet="WPlannerCompany" />
             <End Role="WPlanner" EntitySet="WPlanner" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(WPlanningDBModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(WPlanningDBModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -723,7 +857,15 @@
             <EntityTypeMapping TypeName="WPlanningDBModel.Catalogue">
               <MappingFragment StoreEntitySet="Catalogue">
                 <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
-                <ScalarProperty Name="CatalogueName" ColumnName="CatalogueName" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatalogueTyp">
+            <EntityTypeMapping TypeName="WPlanningDBModel.CatalogueTyp">
+              <MappingFragment StoreEntitySet="CatalogueTyp">
+                <ScalarProperty Name="CatalogueTypeId" ColumnName="CatalogueTypeId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
                 <ScalarProperty Name="BriefDescription" ColumnName="BriefDescription" />
               </MappingFragment>
@@ -735,6 +877,15 @@
                 <ScalarProperty Name="CatalogueXOptionId" ColumnName="CatalogueXOptionId" />
                 <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
                 <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatalogueXWeddin">
+            <EntityTypeMapping TypeName="WPlanningDBModel.CatalogueXWeddin">
+              <MappingFragment StoreEntitySet="CatalogueXWeddin">
+                <ScalarProperty Name="CatalogueXWeddingId" ColumnName="CatalogueXWeddingId" />
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+                <ScalarProperty Name="WeddingId" ColumnName="WeddingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -750,7 +901,6 @@
                 <ScalarProperty Name="LastNameIdentifier" ColumnName="LastNameIdentifier" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="WeddingId" ColumnName="WeddingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -780,6 +930,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -813,11 +964,8 @@
                 <ScalarProperty Name="CoupleId" ColumnName="CoupleId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="InitialBudget" ColumnName="InitialBudget" />
-                <ScalarProperty Name="BudgetId" ColumnName="BudgetId" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="QuantityInvitations" ColumnName="QuantityInvitations" />
-                <ScalarProperty Name="ChecklistId" ColumnName="ChecklistId" />
-                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -848,6 +996,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="WPlanningDBModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="WPlanningDBModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="WPlanningDBModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="WPlanningDBModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WPlanningDBModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="WPlanningDBModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WPlanningDBModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="WPlanningDBModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="WPlanningDBModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

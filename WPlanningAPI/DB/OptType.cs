@@ -24,6 +24,7 @@ namespace WPlanningAPI.DB
         public string Description { get; set; }
         public double Cost { get; set; }
         public string ImageLink { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Option> Option { get; set; }

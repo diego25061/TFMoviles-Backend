@@ -237,14 +237,21 @@
     <Compile Include="Controllers\CoupleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SubscriptionTypeController.cs" />
-    <Compile Include="Controllers\WPlannerController.cs" />
+    <Compile Include="Controllers\PlannerController.cs" />
+    <Compile Include="Controllers\WeddingController.cs" />
     <Compile Include="DB\Activity.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Catalogue.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\CatalogueTyp.cs">
+      <DependentUpon>WPlanningModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\CatalogueXOption.cs">
+      <DependentUpon>WPlanningModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\CatalogueXWeddin.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Couple.cs">
@@ -260,6 +267,12 @@
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Person.cs">
+      <DependentUpon>WPlanningModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>WPlanningModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\sp_helpdiagrams_Result.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\SubscriptionType.cs">
@@ -384,6 +397,7 @@
     <Folder Include="Views\Company\" />
     <Folder Include="Views\Couple\" />
     <Folder Include="Views\SubscriptionType\" />
+    <Folder Include="Views\Wedding\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

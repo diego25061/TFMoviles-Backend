@@ -18,7 +18,7 @@ namespace WPlanningAPI.DB
         public Wedding()
         {
             this.Activity = new HashSet<Activity>();
-            this.Couple = new HashSet<Couple>();
+            this.CatalogueXWeddin = new HashSet<CatalogueXWeddin>();
             this.Expense = new HashSet<Expense>();
         }
     
@@ -26,18 +26,14 @@ namespace WPlanningAPI.DB
         public int CoupleId { get; set; }
         public System.DateTime Date { get; set; }
         public double InitialBudget { get; set; }
-        public int BudgetId { get; set; }
         public string Location { get; set; }
         public int QuantityInvitations { get; set; }
-        public int ChecklistId { get; set; }
-        public int CatalogueId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> Activity { get; set; }
-        public virtual Catalogue Catalogue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Couple> Couple { get; set; }
-        public virtual Couple Couple1 { get; set; }
+        public virtual ICollection<CatalogueXWeddin> CatalogueXWeddin { get; set; }
+        public virtual Couple Couple { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Expense> Expense { get; set; }
     }
