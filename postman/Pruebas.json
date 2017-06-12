@@ -10,7 +10,7 @@
 		{
 			"name": "1. crear company",
 			"request": {
-				"url": "http://localhost:65200/Company/",
+				"url": "{{url}}/Company/",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -106,6 +106,156 @@
 				"method": "GET",
 				"header": [],
 				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "2. Resetear contraseña wplanner",
+			"request": {
+				"url": "{{url}}/Planner/1/resetpassword",
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "5. Validar credenciales wplanner",
+			"request": {
+				"url": {
+					"raw": "{{url}}/Planner/validateCredentials?user=hapmichael&password=jsmith",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Planner",
+						"validateCredentials"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "hapmichael",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "password",
+							"value": "jsmith",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "26. Listar parejas de wplanner",
+			"request": {
+				"url": "{{url}}/Planner/1/Couple",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "7. Agregar pareja y boda",
+			"request": {
+				"url": "{{url}}/Wedding",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "LastName",
+							"value": "Smithers",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "SharedEmail",
+							"value": "JenniferSmithers@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Address",
+							"value": "California st alksdjqlwkdqw",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Phone",
+							"value": "91237812",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "CredsUser",
+							"value": "Smith123",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "CredsPassword",
+							"value": "pwd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "WedBudget",
+							"value": "12500",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "WedDateYear",
+							"value": "2018",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "WedDateMonth",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "WedDateDay",
+							"value": "10",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "WedAddress",
+							"value": "we dont know yet!",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "WedGuestQuantity",
+							"value": "130",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "PlannerId",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
 				"description": ""
 			},
 			"response": []
