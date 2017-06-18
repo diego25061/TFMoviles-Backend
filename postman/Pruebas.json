@@ -18,7 +18,7 @@
 					"formdata": [
 						{
 							"key": "Name",
-							"value": "companyy",
+							"value": "LannisterWeddings",
 							"description": "",
 							"type": "text"
 						},
@@ -48,7 +48,7 @@
 						},
 						{
 							"key": "SubscriptionType",
-							"value": "1",
+							"value": "2",
 							"description": "",
 							"type": "text"
 						},
@@ -256,6 +256,310 @@
 						}
 					]
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar wedding",
+			"request": {
+				"url": "http://localhost:65200/Wedding/",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Id",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Budget",
+							"value": "99999",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "DateYear",
+							"value": "21",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "DateMonth",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "DateDay",
+							"value": "20",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "some new address",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "quantityInvitations",
+							"value": "",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "modificar datos de pareja",
+			"request": {
+				"url": "http://localhost:65200/Couple",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Id",
+							"value": "6",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "anderson",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "sharedemail",
+							"value": "anderson@alksjkdh.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "somewhere over the ranbow:3",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "10283712",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "credsUser",
+							"value": "User!!",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "credsPassword",
+							"value": "PAssswdwdwd",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar actividad a boda",
+			"request": {
+				"url": "http://localhost:65200/Activity",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "WeddingId",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Name",
+							"value": "comprar weeeeddd! :9",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "DateYear",
+							"value": "2018",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "DateMonth",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "DateDay",
+							"value": "21",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Actividad",
+			"request": {
+				"url": "http://localhost:65200/Activity",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Listar actividades de boda",
+			"request": {
+				"url": "http://localhost:65200/Wedding/2/Activity",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Ver costo aproximado de boda",
+			"request": {
+				"url": "http://localhost:65200/Budget/2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar pareja",
+			"request": {
+				"url": "{{url}}/Couple/7",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Leer catalogo de pareja",
+			"request": {
+				"url": "{{url}}/Couple/7/Catalogue",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar opcion a catalogo",
+			"request": {
+				"url": "{{url}}/Option",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "CatalogueId",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Name",
+							"value": "Jazz decoration (?)",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Description",
+							"value": "Soft jazz music band for the ambience asdaqwd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "Cost",
+							"value": "430",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "ImageLink",
+							"value": "someimagelinkrighthere",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "validar credenciales pareja",
+			"request": {
+				"url": {
+					"raw": "{{url}}/Couple/validateCredentials?user=boyle02&password=password",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Couple",
+						"validateCredentials"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "boyle02",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"description": ""
 			},
 			"response": []
