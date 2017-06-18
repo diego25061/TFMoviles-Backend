@@ -263,7 +263,7 @@
 		{
 			"name": "Modificar wedding",
 			"request": {
-				"url": "http://localhost:65200/Wedding/",
+				"url": "{{url}}/Wedding/",
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -320,7 +320,7 @@
 		{
 			"name": "modificar datos de pareja",
 			"request": {
-				"url": "http://localhost:65200/Couple",
+				"url": "{{url}}/Couple",
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -377,7 +377,7 @@
 		{
 			"name": "Agregar actividad a boda",
 			"request": {
-				"url": "http://localhost:65200/Activity",
+				"url": "{{url}}/Activity",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -422,7 +422,7 @@
 		{
 			"name": "Borrar Actividad",
 			"request": {
-				"url": "http://localhost:65200/Activity",
+				"url": "{{url}}/Activity",
 				"method": "DELETE",
 				"header": [],
 				"body": {
@@ -443,7 +443,7 @@
 		{
 			"name": "Listar actividades de boda",
 			"request": {
-				"url": "http://localhost:65200/Wedding/2/Activity",
+				"url": "{{url}}/Wedding/2/Activity",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -454,7 +454,7 @@
 		{
 			"name": "Ver costo aproximado de boda",
 			"request": {
-				"url": "http://localhost:65200/Budget/2",
+				"url": "{{url}}/Budget/2",
 				"method": "GET",
 				"header": [],
 				"body": {},
