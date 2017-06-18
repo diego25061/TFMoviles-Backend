@@ -88,3 +88,5 @@ c:\users\tp\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI\bin\
 c:\users\tp\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI\obj\Debug\WPlanningAPI.csprojResolveAssemblyReference.cache
 c:\users\tp\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI\obj\Debug\WPlanningAPI.dll
 c:\users\tp\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI\obj\Debug\WPlanningAPI.pdb
+C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI\bin\Swashbuckle.Core.dll
+C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI\bin\WebActivatorEx.dll

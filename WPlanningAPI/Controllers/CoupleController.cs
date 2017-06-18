@@ -50,6 +50,77 @@ namespace WPlanningAPI.Controllers
         }
     }*/
 
+
+
+
+
+
+        [Route("Couple/{Id}/Catalogue")]
+        public ActionResult Catalogues(int Id)
+        {
+            try
+            {
+                var db = new DB.WPlanningDBEntities();
+                //DB.Couple couple = db.Couple.First(c => c.CoupleId == Id);
+                var weddingList = db.Wedding.Where(x => x.CoupleId == Id);
+                /*
+                if (weddingList.Count() == 0)
+                    //return HttpNotFound("Couple has no wedding!");
+                    return new HttpStatusCodeResult(500, "Given couple has no wedding!");*/
+
+                DB.Wedding wedding = weddingList.First();
+
+                var dbCataloguexWedding = db.CatalogueXWeddin.Where(x => x.WeddingId == wedding.WeddingId);
+                List<DB.Catalogue> dbCatalogueList = new List<DB.Catalogue>();
+
+                foreach (var catxWedding in dbCataloguexWedding)
+                {
+                    dbCatalogueList.Add(catxWedding.Catalogue);
+                }
+
+                List<CatalogueDataModel> catalogueList = new List<CatalogueDataModel>();
+
+
+                foreach (var cat in dbCatalogueList)
+                {
+                    catalogueList.Add(new CatalogueDataModel
+                    {
+                        Id = cat.CatalogueId,
+                        Title = cat.CatalogueTyp.Title,
+                        Description = cat.CatalogueTyp.BriefDescription,
+                        ImageLink = cat.CatalogueTyp.BriefDescription,
+                        Options = new List<CatalogueDataModel.CatalogueOptionDataModel>()
+
+                    });
+                }
+
+                foreach (var cat in catalogueList)
+                    foreach (var catalogueXOption in db.CatalogueXOption.Where(x => x.CatalogueId == cat.Id))
+                    {
+                        DB.Option dbOption = catalogueXOption.Option;
+                        cat.Options.Add(new CatalogueDataModel.CatalogueOptionDataModel
+                        {
+                            OptionId = dbOption.OptionId,
+                            Chosen = dbOption.Chosen,
+                            Cost = (float)dbOption.OptType.Cost,
+                            Name = dbOption.OptType.Name,
+                            Description = dbOption.OptType.Description,
+                            ImageLink = dbOption.OptType.ImageLink
+                        });
+                    }
+
+                return Json(catalogueList, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+
+                mostrarMensajeException(ex);
+                return new HttpStatusCodeResult(500);
+            }
+        }
+
+
         [HttpDelete]
         [Route("Couple/{Id}")]
         public ActionResult Index(int Id)
@@ -65,7 +136,7 @@ namespace WPlanningAPI.Controllers
                 db.SaveChanges();
                 return Content("true");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 mostrarMensajeException(ex);
                 return new HttpStatusCodeResult(500);
@@ -115,8 +186,11 @@ namespace WPlanningAPI.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                return HttpNotFound();
+
+                mostrarMensajeException(ex);
+                return new HttpStatusCodeResult(500);
+                // Console.WriteLine(ex.StackTrace);
+                // return HttpNotFound();
                 //return Content("-1");
             }
         }
@@ -131,5 +205,24 @@ namespace WPlanningAPI.Controllers
             public string CredsPassword { get; set; }
         }
 
+        public class CatalogueDataModel
+        {
+            public int Id { get; set; }
+            public string Title { get; set; }
+            public string ImageLink { get; set; }
+            public string Description { get; set; }
+
+            public List<CatalogueOptionDataModel> Options;
+
+            public class CatalogueOptionDataModel
+            {
+                public int OptionId { get; set; }
+                public string Name { get; set; }
+                public string Description { get; set; }
+                public float Cost { get; set; }
+                public bool Chosen { get; set; }
+                public string ImageLink { get; set; }
+            }
+        }
     }
 }
