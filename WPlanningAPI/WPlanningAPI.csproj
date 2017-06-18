@@ -282,12 +282,6 @@
     <Compile Include="DB\Person.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>WPlanningModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\sp_helpdiagrams_Result.cs">
-      <DependentUpon>WPlanningModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\SubscriptionType.cs">
       <DependentUpon>WPlanningModel.tt</DependentUpon>
     </Compile>
@@ -373,6 +367,8 @@
     <Content Include="DB\WPlanningModel.edmx.diagram">
       <DependentUpon>WPlanningModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\WPlanningAPI - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\WPlanningAPI - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -50,3 +50,5 @@ C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI.Test
 C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI.Tests\obj\Debug\WPlanningAPI.Tests.csprojResolveAssemblyReference.cache
 C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI.Tests\obj\Debug\WPlanningAPI.Tests.dll
 C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI.Tests\obj\Debug\WPlanningAPI.Tests.pdb
+C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI.Tests\bin\Debug\WebActivatorEx.dll
+C:\Users\TP\documents\visual studio 2015\Projects\WPlanningAPI\WPlanningAPI.Tests\bin\Debug\Swashbuckle.Core.dll
