@@ -232,7 +232,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BudgetController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CoupleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -394,6 +396,8 @@
     <Folder Include="Logic\" />
     <Folder Include="Providers\" />
     <Folder Include="Results\" />
+    <Folder Include="Views\Activity\" />
+    <Folder Include="Views\Budget\" />
     <Folder Include="Views\Company\" />
     <Folder Include="Views\Couple\" />
     <Folder Include="Views\SubscriptionType\" />

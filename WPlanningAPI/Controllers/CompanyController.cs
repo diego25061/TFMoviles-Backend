@@ -53,7 +53,20 @@ namespace WPlanningAPI.Controllers
                     Address = dataModel.Address,
                     SubscriptionType = db.SubscriptionType.Where(x => x.SubscriptionTypeId == dataModel.SubscriptionType).First()
                 };
+
                 db.WPlannerCompany.Add(company);
+
+                for (int i = 0; i< company.SubscriptionType.QuantityWPlanners; i++)
+                {
+                    DB.WPlanner planner = new DB.WPlanner
+                    {
+                        Usr = Models.WPlanner.generateName(company),
+                        Password = Models.WPlanner.generatePassword(),
+                        WPlannerCompanyId = company.WPlannerCompanyId
+                    };
+                    db.WPlanner.Add(planner);
+                }
+
                 db.SaveChanges();
                 return Content("" + company.WPlannerCompanyId);
             }
@@ -61,7 +74,8 @@ namespace WPlanningAPI.Controllers
             {
                 //Console.WriteLine(ex.StackTrace);
                 mostrarMensajeException(ex);
-                return Content("-1");
+                return new HttpStatusCodeResult(500);
+                //Content("-1");
             }
         }
 

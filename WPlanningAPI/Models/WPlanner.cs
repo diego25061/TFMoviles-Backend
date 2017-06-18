@@ -9,6 +9,8 @@ namespace WPlanningAPI.Models
     public class WPlanner
     {
 
+        static Random rand = new Random();
+
         public Person Person { get; set; }
         public string User { get; set; }
         public string Password { get; set; }
@@ -76,7 +78,6 @@ namespace WPlanningAPI.Models
         public static string generatePassword()
         {
             char[] pass =  new char[8];
-            Random rand = new Random();
             rand.NextDouble();
             for( int i = 0; i < 8; i++)
             {
@@ -85,6 +86,12 @@ namespace WPlanningAPI.Models
 
             string password = new string(pass);
             return password;
+        }
+
+        public static string generateName(DB.WPlannerCompany Company)
+        {
+            //Random rand = new Random();
+            return Company.CompanyName.Substring(0, 4) + "user" + rand.Next(100,999);
         }
     }
 }
