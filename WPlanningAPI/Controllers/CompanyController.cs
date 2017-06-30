@@ -125,7 +125,7 @@ namespace WPlanningAPI.Controllers
                 {
                     company.PlannerUsers.Add(new ViewCompanyDataModel.PlannerViewCompanyDataModel
                     {
-                        Id = dbPlanner.WPlannerCompanyId,
+                        Id = dbPlanner.WPlannerId,
                         Password = dbPlanner.Password,
                         User = dbPlanner.Usr
                     });

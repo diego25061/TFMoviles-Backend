@@ -31,9 +31,9 @@ namespace WPlanningAPI.Controllers
             
             */
 
-            var lista = SubscriptionType.getAllFromDb();
+            //var lista = SubscriptionType.getAllFromDb();
             
-            return Json(new { lista }, JsonRequestBehavior.AllowGet);
+            return Json(SubscriptionType.getAllFromDb(), JsonRequestBehavior.AllowGet);
             //return View();
 
         }
